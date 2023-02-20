@@ -8,8 +8,7 @@ import { BiCircle } from "react-icons/bi"
 // Components
 import PageLayout from "../components/PageLayout"
 import CopyTooltip from "../components/label/СopyToClipboardTooltip"
-import GearIcon from "../components/icons/GearIcon"
-import QRIcon from "../components/icons/QRIcon"
+import CopyIcon from "../components/icons/CopyIcon"
 import NetworkSelect from "../components/input/NetworkSelect"
 import ArrowHoverAnimation from "../components/icons/ArrowHoverAnimation"
 import ErrorDialog from "../components/dialog/ErrorDialog"
@@ -39,9 +38,12 @@ import { useSelectedAddressWithChainIdChecksum } from "../util/hooks/useSelected
 
 // Assets
 import TokenSummary from "../components/token/TokenSummary"
-import GasPricesInfo from "../components/gas/GasPricesInfo"
 import DoubleArrowHoverAnimation from "../components/icons/DoubleArrowHoverAnimation"
 import TransparentOverlay from "../components/loading/TransparentOverlay"
+import AssetsList from "../components/AssetsList"
+import ArrowIcon from "../components/icons/ArrowIcon"
+import { BsCurrencyBitcoin } from "react-icons/bs"
+import BuyIcon from "../components/icons/BuyIcon"
 
 const AccountDisplay = () => {
     const accountAddress = useSelectedAddressWithChainIdChecksum()
@@ -59,11 +61,12 @@ const AccountDisplay = () => {
             className="relative flex flex-col group"
             onClick={copy}
         >
-            <span className="text-sm font-bold" data-testid="account-name">
+            <span className="text-sm font-bold text-white" data-testid="account-name">
                 {formatName(account.name, 18)}
             </span>
-            <span className="text-xs text-gray-600 truncate">
+            <span className="text-sm truncate text-white flex items-center">
                 {formatHash(accountAddress)}
+                <CopyIcon />
             </span>
             <CopyTooltip copied={copied} />
         </button>
@@ -105,9 +108,9 @@ const DAppConnection = () => {
                 className={classnames(
                     "relative flex flex-row items-center p-1 px-2 pr-1  text-gray-600 rounded-md group border border-primary-200  text-xs cursor-pointer",
                     dAppConnected === "connected" &&
-                        "bg-green-100 hover:border-green-300",
+                    "bg-green-100 hover:border-green-300",
                     dAppConnected === "connected-warning" &&
-                        "bg-yellow-100 hover:border-yellow-300",
+                    "bg-yellow-100 hover:border-yellow-300",
                     dAppConnected === "not-connected" && "pointer-events-none"
                 )}
             >
@@ -131,7 +134,7 @@ const DAppConnection = () => {
                         "mr-1 pointer-events-none",
                         dAppConnected === "connected" && "text-green-600",
                         dAppConnected === "connected-warning" &&
-                            "text-yellow-600"
+                        "text-yellow-600"
                     )}
                 >
                     {dAppConnected === "not-connected"
@@ -143,95 +146,22 @@ const DAppConnection = () => {
     )
 }
 
-const PopupPage = () => {
-    const error = (useHistory().location.state as { error: string })?.error
+const HomePage = () => {
     const state = useBlankState()!
-    const history = useHistory()
     const { nativeToken } = useTokensList()
     const { nativeCurrency, isSendEnabled, isSwapEnabled, isBridgeEnabled } =
         useSelectedNetwork()
-    const checksumAddress = useSelectedAddressWithChainIdChecksum()
-    const [hasErrorDialog, setHasErrorDialog] = useState(!!error)
 
     const isLoading =
         state.isNetworkChanging || state.isRatesChangingAfterNetworkChange
 
     return (
-        <PageLayout screen className="max-h-screen popup-layout">
-            <ErrorDialog
-                title="Error!"
-                message={error}
-                open={hasErrorDialog}
-                onClickOutside={() => {
-                    setHasErrorDialog(false)
-                }}
-                onDone={() => setHasErrorDialog(false)}
-            />
+        <>
             {state.isNetworkChanging && <TransparentOverlay />}
-            <div
-                className="absolute top-0 left-0 z-10 flex flex-col items-start w-full p-6 bg-white bg-opacity-75 border-b border-b-gray-200 popup-layout"
-                style={{ backdropFilter: "blur(4px)" }}
-            >
-                <div className="flex flex-row items-center justify-between w-full">
-                    <div className="flex flex-row items-center space-x-3">
-                        <div className="relative flex flex-col items-start group">
-                            <Link
-                                to="/accounts"
-                                className="transition duration-300"
-                                draggable={false}
-                                data-testid="navigate-account-link"
-                            >
-                                <AccountIcon
-                                    className="w-8 h-8 transition-transform duration-200 ease-in transform hover:rotate-180"
-                                    fill={getAccountColor(checksumAddress)}
-                                />
-                            </Link>
-                            <Tooltip
-                                className="pointer-events-none absolute bottom-0 -mb-2 transform !translate-x-0 !translate-y-full p-2 rounded-md text-xs font-bold bg-gray-900 text-white"
-                                content={
-                                    <>
-                                        <div className="border-t-4 border-r-4 border-gray-900 absolute top-0 left-2 w-2 h-2 -mt-2.5 transform -rotate-45 -translate-x-1/2" />
-                                        <span>My Accounts</span>
-                                    </>
-                                }
-                            />
-                        </div>
-                        <div className="flex flex-row items-center space-x-1">
-                            <AccountDisplay />
-                            <Link
-                                to="/accounts/menu/receive"
-                                draggable={false}
-                                onClick={(e) => {
-                                    e.preventDefault()
-
-                                    history.push("/accounts/menu/receive")
-                                }}
-                                className="p-2 transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300"
-                            >
-                                <QRIcon />
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="flex flex-row items-center -mr-1 space-x-2">
-                        <GasPricesInfo />
-                        <Link
-                            to="/settings"
-                            draggable={false}
-                            onClick={(e) => {
-                                e.preventDefault()
-
-                                history.push("/settings")
-                            }}
-                            className="p-2 transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300"
-                        >
-                            <GearIcon />
-                        </Link>
-                    </div>
-                </div>
-            </div>
-            <div className="flex flex-col items-start flex-1 w-full h-0 max-h-screen p-6 pt-24 space-y-2 overflow-auto hide-scroll">
+            <div className="flex flex-col items-start flex-1 w-full max-h-screen p-6 pt-24 space-y-2 overflow-auto hide-scroll">
                 <div className="w-full">
-                    <div className="flex flex-row items-start w-full justify-between pt-1 pb-2">
+                    {/* dapp connected status part */}
+                    {/* <div className="flex flex-row items-start w-full justify-between pt-1 pb-2">
                         <GenericTooltip
                             bottom
                             disabled={!state.isImportingDeposits}
@@ -246,8 +176,8 @@ const PopupPage = () => {
                             <NetworkSelect />
                         </GenericTooltip>
                         <DAppConnection />
-                    </div>
-                    <TokenSummary className="p-4">
+                    </div> */}
+                    <TokenSummary>
                         <TokenSummary.Balances>
                             <TokenSummary.TokenBalance
                                 title={
@@ -270,9 +200,9 @@ const PopupPage = () => {
                                 {formatCurrency(
                                     toCurrencyAmount(
                                         nativeToken.balance ||
-                                            BigNumber.from(0),
+                                        BigNumber.from(0),
                                         state.exchangeRates[
-                                            state.networkNativeCurrency.symbol
+                                        state.networkNativeCurrency.symbol
                                         ],
                                         nativeCurrency.decimals
                                     ),
@@ -290,20 +220,19 @@ const PopupPage = () => {
                                 to="/send"
                                 draggable={false}
                                 className={classnames(
-                                    "flex flex-col items-center space-y-2 group",
+                                    "flex flex-row items-center space-y-2 group w-full",
                                     !isSendEnabled && "pointer-events-none"
                                 )}
                             >
                                 <div
                                     className={classnames(
-                                        "w-8 h-8 overflow-hidden transition duration-300 rounded-full group-hover:opacity-75",
+                                        "overflow-hidden flex flex-1 w-full justify-center items-center px-2.5 py-1.5 transition duration-300 rounded-lg group-hover:opacity-75",
                                         !isSendEnabled
                                             ? "bg-gray-300"
-                                            : "bg-primary-300"
+                                            : "bg-body-balances-100"
                                     )}
-                                    style={{ transform: "scaleY(-1)" }}
                                 >
-                                    {isLoading ? (
+                                    {/* {isLoading ? (
                                         <div className="flex flex-row items-center justify-center w-full h-full">
                                             <AnimatedIcon
                                                 icon={
@@ -314,34 +243,34 @@ const PopupPage = () => {
                                         </div>
                                     ) : (
                                         <ArrowHoverAnimation />
-                                    )}
+                                    )} */}
+                                    <ArrowIcon direction={"down"}/>
+                                    <span className="text-xs font-medium text-body-balances-200">
+                                        Deposit
+                                    </span>
                                 </div>
-                                <span className="text-xs font-medium">
-                                    Send
-                                </span>
                             </Link>
                             {isSwapEnabled && (
                                 <Link
                                     to="/swap"
                                     draggable={false}
                                     className={classnames(
-                                        "flex flex-col items-center space-y-2 group",
+                                        "flex flex-row items-center space-y-2 group w-full",
                                         (!isSendEnabled ||
                                             !state.isUserNetworkOnline) &&
-                                            "pointer-events-none"
+                                        "pointer-events-none"
                                     )}
                                 >
                                     <div
                                         className={classnames(
-                                            "w-8 h-8 overflow-hidden transition duration-300 rounded-full group-hover:opacity-75",
+                                            "overflow-hidden flex items-center justify-center flex-1 px-2.5 py-1.5 transition duration-300 rounded-lg group-hover:opacity-75",
                                             !isSendEnabled ||
                                                 !state.isUserNetworkOnline
                                                 ? "bg-gray-300"
-                                                : "bg-primary-300"
+                                                : "bg-body-balances-100"
                                         )}
-                                        style={{ transform: "scaleY(-1)" }}
                                     >
-                                        {isLoading ? (
+                                        {/* {isLoading ? (
                                             <div className="flex flex-row items-center justify-center w-full h-full">
                                                 <AnimatedIcon
                                                     icon={
@@ -352,11 +281,12 @@ const PopupPage = () => {
                                             </div>
                                         ) : (
                                             <DoubleArrowHoverAnimation />
-                                        )}
+                                        )} */}
+                                        <BuyIcon />
+                                        <span className="text-xs font-medium text-body-balances-200">
+                                            Buy
+                                        </span>
                                     </div>
-                                    <span className="text-xs font-medium">
-                                        Swap
-                                    </span>
                                 </Link>
                             )}
                             {isBridgeEnabled && (
@@ -364,23 +294,22 @@ const PopupPage = () => {
                                     to="/bridge"
                                     draggable={false}
                                     className={classnames(
-                                        "flex flex-col items-center space-y-2 group",
+                                        "flex flex-row items-center space-y-2 group w-full",
                                         (!isSendEnabled ||
                                             !state.isUserNetworkOnline) &&
-                                            "pointer-events-none"
+                                        "pointer-events-none"
                                     )}
                                 >
                                     <div
                                         className={classnames(
-                                            "w-8 h-8 overflow-hidden transition duration-300 rounded-full group-hover:opacity-75",
+                                            "overflow-hidden flex items-center justify-center flex-1 w-full px-2.5 py-1.5 transition duration-300 rounded-lg group-hover:opacity-75",
                                             !isSendEnabled ||
                                                 !state.isUserNetworkOnline
                                                 ? "bg-gray-300"
-                                                : "bg-primary-300"
+                                                : "bg-body-balances-100"
                                         )}
-                                        style={{ transform: "scaleY(-1)" }}
                                     >
-                                        {isLoading ? (
+                                        {/* {isLoading ? (
                                             <div className="flex flex-row items-center justify-center w-full h-full">
                                                 <AnimatedIcon
                                                     icon={
@@ -394,20 +323,22 @@ const PopupPage = () => {
                                                 icon={AnimatedIconName.Bridge}
                                                 className="cursor-pointer"
                                             />
-                                        )}
+                                        )} */}
+                                        <ArrowIcon direction={"up"}/>
+                                        <span className="text-xs font-medium text-body-balances-200">
+                                            Send
+                                        </span>
                                     </div>
-                                    <span className="text-xs font-medium">
-                                        Bridge
-                                    </span>
                                 </Link>
                             )}
                         </TokenSummary.Actions>
                     </TokenSummary>
-                    <ActivityAssetsView initialTab={state.popupTab} />
+                    {/* <ActivityAssetsView initialTab={state.popupTab} /> */}
+                    <AssetsList />
                 </div>
             </div>
-        </PageLayout>
+        </>
     )
 }
 
-export default PopupPage
+export default HomePage

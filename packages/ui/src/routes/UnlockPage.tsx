@@ -105,7 +105,7 @@ const UnlockPage = () => {
         <PopupLayout
             header={
                 <PopupHeader
-                    title="Unlock App"
+                    title="Unlock Appasdfasdfasdf"
                     close={false}
                     backButton={false}
                 >

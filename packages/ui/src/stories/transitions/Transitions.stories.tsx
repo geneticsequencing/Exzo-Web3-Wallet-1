@@ -2,7 +2,7 @@ import { FunctionComponent, useState } from "react"
 import { Meta } from "@storybook/react"
 import { HashRouter } from "react-router-dom"
 import { TransitionRoute } from "../../router/TransitionRoute"
-import PopupPage from "../../routes/PopupPage"
+import HomePage from "../../routes/HomePage"
 import SettingsPage from "../../routes/settings/SettingsPage"
 import MockBackgroundState from "../../mock/MockBackgroundState"
 import { Classes } from "../../styles"
@@ -30,7 +30,7 @@ const MinimalApp: FunctionComponent<{ transition: string }> = ({
                             path={main ? "/" : "/x"}
                             exact
                             transition={transition}
-                            component={PopupPage}
+                            component={HomePage}
                         />
                         <TransitionRoute
                             path={main ? "/x" : "/"}

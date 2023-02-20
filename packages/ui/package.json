@@ -5,6 +5,9 @@
     "dependencies": {
         "@block-wallet/explorer-link": "https://github.com/Block-Wallet/explorer-link",
         "@block-wallet/phishing-prevention": "git+https://github.com/block-wallet/phishing-prevention#4708461673825816104b8a6cf5260ecb29b75c61",
+        "@fortawesome/fontawesome-svg-core": "^6.3.0",
+        "@fortawesome/free-solid-svg-icons": "^6.3.0",
+        "@fortawesome/react-fontawesome": "^0.2.0",
         "@hookform/resolvers": "^2.9.3",
         "@tailwindcss/forms": "^0.5.2",
         "bfj": "^7.0.2",
@@ -132,10 +135,10 @@
         "workbox-webpack-plugin": "5.1.4"
     },
     "scripts": {
-        "build:tailwind": "NODE_ENV=production tailwindcss build -i src/styles/tailwind.css -o src/styles/tailwind.generated.css --minify",
+        "build:tailwind": "SET NODE_ENV=production && tailwindcss build -i src/styles/tailwind.css -o src/styles/tailwind.generated.css --minify",
         "build:tailwind:dev": "tailwindcss build -i src/styles/tailwind.css -o src/styles/tailwind.generated.css --watch",
-        "start:ext": "MODE=dev rm -rf public && cp -r ../../public public && run-p build:tailwind:dev build:ext:dev && rm -rf public",
-        "build:ext:dev": "cra-build-watch --build-path './../../dist' --after-rebuild-hook 'cp ./../../dist/index.html ./../../dist/tab.html && cp ./../../dist/index.html ./../../dist/popup.html'",
+        "start:ext": "rm -rf public && cp -r ../../public public && run-p build:tailwind:dev build:ext:dev && rm -rf public",
+        "build:ext:dev": "cra-build-watch --build-path './../../dist' --after-rebuild-hook \"cp ./../../dist/index.html ./../../dist/tab.html && cp ./../../dist/index.html ./../../dist/popup.html\"",
         "build:ext": "make build/ui",
         "test": "jest",
         "test:watch": "jest --watch",

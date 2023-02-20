@@ -24,10 +24,10 @@ const TokenSummary: FC<{
     return (
         <div
             className={
-                "flex flex-col items-center w-full justify-between rounded-md bg-primary-100 h-fit " +
+                "flex flex-col items-center w-full justify-between rounded-md h-fit " +
                 className
             }
-            style={{ minHeight: minHeight ?? "10rem" }}
+            style={{ minHeight: minHeight ?? "10.5rem" }}
         >
             {children}
         </div>
@@ -53,7 +53,7 @@ const Balances = ({
             ) : (
                 <div
                     className={
-                        "flex flex-col items-center space-y-1 " + className
+                        "flex flex-col items-center space-y-1 bg-body-balances-100 w-full pt-[30px] pb-[22px] rounded-lg " + className
                     }
                 >
                     {children}
@@ -70,7 +70,7 @@ const TokenBalance: FC<{
 }> = ({ children, title, className }) => {
     return (
         <span
-            className={classnames("text-2xl font-bold", className)}
+            className={classnames("text-2xl font-[400] text-body-balances-200 text-[32px]", className)}
             title={title}
         >
             {children}
@@ -83,7 +83,7 @@ const ExchangeRateBalance: FC<{
     children: React.ReactNode
 }> = ({ children, title }) => {
     return (
-        <span className="text-sm text-gray-600" title={title}>
+        <span className="text-lg text-body-balances-200 " title={title}>
             {children}
         </span>
     )
@@ -107,7 +107,7 @@ const Actions: FC<{
     return (
         <div
             className={
-                "flex flex-row items-center justify-around w-full " + className
+                "flex flex-row items-center justify-between w-full gap-3 " + className
             }
         >
             {children}

@@ -21,6 +21,9 @@ import { timeExceedsTTL } from "../util/time"
 import ProviderDownDialog from "../components/dialog/ProviderDownDialog"
 import useClearStickyStorage from "../context/hooks/useClearStickyStorage"
 import { getNonSubmittedTransactions } from "../util/getNonSubmittedTransactions"
+import MainHeader from "../components/MainHeader"
+import MainFooter from "../components/MainFooter"
+import PageLayout from "../components/PageLayout"
 
 //10 minutes
 const LOCAL_STORAGE_DATA_TTL = 60000 * 10
@@ -57,6 +60,9 @@ const PopupComponent = () => {
         unapprovedTransactions,
         dappRequests
     )
+
+    const error = (useHistory().location.state as { error: string })?.error
+    const [hasErrorDialog, setHasErrorDialog] = useState(!!error)
 
     useLayoutEffect(() => {
         if (
@@ -95,7 +101,20 @@ const PopupComponent = () => {
             <Route exact path="/">
                 {showPage ? <Redirect to={route} /> : <Redirect to="/home" />}
             </Route>
-            {appRoutes}
+            <PageLayout screen className="max-h-screen popup-layout">
+                <ErrorDialog
+                    title="Error!"
+                    message={error}
+                    open={hasErrorDialog}
+                    onClickOutside={() => {
+                        setHasErrorDialog(false)
+                    }}
+                    onDone={() => setHasErrorDialog(false)}
+                />
+                <MainHeader />
+                    {appRoutes}
+                <MainFooter />
+            </PageLayout>
         </WalletNews>
     )
 }

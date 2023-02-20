@@ -113,7 +113,7 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
                         disabled && "pointer-events-none text-gray-300"
                     )}
                 >
-                    <ArrowIcon />
+                    <ArrowIcon direction={"down"}/>
                 </button>
             )}
             {icon && (

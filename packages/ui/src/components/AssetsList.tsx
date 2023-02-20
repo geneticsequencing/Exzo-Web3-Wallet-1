@@ -29,8 +29,8 @@ export const AssetIcon: FunctionComponent<{
             <img
                 src={asset.logo || unknownTokenIcon}
                 onError={(e) => {
-                    ;(e.target as any).onerror = null
-                    ;(e.target as any).src = unknownTokenIcon
+                    ; (e.target as any).onerror = null
+                        ; (e.target as any).src = unknownTokenIcon
                 }}
                 alt={asset.symbol || ""}
                 className="rounded-full"
@@ -56,7 +56,8 @@ const Asset: FunctionComponent<{
                     },
                 })
             }
-            className="flex flex-row items-center justify-between px-6 py-5 -ml-6 transition duration-300 hover:bg-primary-100 hover:bg-opacity-50 active:bg-primary-200 active:bg-opacity-50 cursor-pointer"
+            className="flex flex-row items-center justify-between px-3 py-4 -ml-6 transition duration-300 hover:bg-opacity-20 
+                bg-body-assets-100 active:bg-opacity-20 cursor-pointer rounded-lg"
             style={{ width: "calc(100% + 2 * 1.5rem)" }}
             role="listitem"
             aria-label={asset.token.symbol}
@@ -65,26 +66,42 @@ const Asset: FunctionComponent<{
                 <AssetIcon asset={asset.token} />
                 <div className="flex flex-col ml-2">
                     <span
-                        className="text-sm font-bold"
+                        className="font-bold text-white text-base"
                         title={`
                                     ${formatUnits(
-                                        asset.balance || "0",
-                                        asset.token.decimals
-                                    )} ${asset.token.symbol}
+                            asset.balance || "0",
+                            asset.token.decimals
+                        )} ${asset.token.symbol}
                                 `}
                     >
-                        {`
-                                    ${formatRounded(
-                                        formatUnits(
-                                            asset.balance || "0",
-                                            asset.token.decimals
-                                        ),
-                                        4
-                                    )}
-                                    ${asset.token.symbol}
-                                `}
+                        Exzo
                     </span>
-                    <span className="text-xs text-gray-600">
+                    <span className="text-sm text-body-assets-200">
+                        {`
+                            ${formatRounded(
+                                formatUnits(
+                                    asset.balance || "0",
+                                    asset.token.decimals
+                                ),
+                                4
+                            )}
+                            ${asset.token.symbol}
+                        `}
+                    </span>
+                </div>
+            </div>
+            <div className="flex flex-col items-end">
+                {/* <ChevronRightIcon /> */}
+                <div className="flex flex-col ml-2">
+                    <span
+                        className="font-bold text-white text-base"
+                        title={`
+                                    ${formatUnits(
+                            asset.balance || "0",
+                            asset.token.decimals
+                        )} ${asset.token.symbol}
+                                `}
+                    >
                         {formatter.format(
                             asset.balance || BigNumber.from(0),
                             asset.token.symbol,
@@ -92,10 +109,10 @@ const Asset: FunctionComponent<{
                             isNativeTokenAddress(asset.token.address)
                         )}
                     </span>
+                    <span className="text-sm text-body-balances-200">
+                        +$0.10
+                    </span>
                 </div>
-            </div>
-            <div className="flex flex-col items-end">
-                <ChevronRightIcon />
             </div>
         </div>
     )
@@ -129,21 +146,23 @@ const SubAssetList: FunctionComponent<{ assets: TokenList }> = ({ assets }) => {
             role="list"
             aria-label="assets"
         >
-            {isLoading ? (
-                <AssetsLoadingSkeleton />
-            ) : (
-                assets
-                    .filter((t) => !deletedTokens.includes(t.token.address))
-                    .map((a, i) => (
-                        <Fragment key={i}>
-                            {i > 0 ? <hr /> : null}
-                            <Asset
-                                asset={a}
-                                pushDeleteTokens={pushDeleteTokens}
-                            />
-                        </Fragment>
-                    ))
-            )}
+            <div className="text-white text-sm mt-2.5" >Assets</div>
+            <div className="px-6 py-2 flex gap-2 flex-col">
+                {isLoading ? (
+                    <AssetsLoadingSkeleton />
+                ) : (
+                    assets
+                        .filter((t) => !deletedTokens.includes(t.token.address))
+                        .map((a, i) => (
+                            <Fragment key={i}>
+                                <Asset
+                                    asset={a}
+                                    pushDeleteTokens={pushDeleteTokens}
+                                />
+                            </Fragment>
+                        ))
+                )}
+            </div>
         </div>
     )
 }

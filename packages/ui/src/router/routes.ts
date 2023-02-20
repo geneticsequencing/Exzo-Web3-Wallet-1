@@ -5,7 +5,7 @@ import ConnectedSitesPage from "../routes/settings/ConnectedSitesPage"
 import ConnectedSiteAccountsPage from "../routes/settings/ConnectedSiteAccountsPage"
 import TransactionConfirmPage from "../routes/dApp/TransactionConfirmPage"
 import AccountsPage from "../routes/account/AccountsPage"
-import PopupPage from "../routes/PopupPage"
+import HomePage from "../routes/HomePage"
 import ReceivePage from "../routes/ReceivePage"
 import SendConfirmPage from "../routes/send/SendConfirmPage"
 import SendPage from "../routes/send/SendPage"
@@ -58,10 +58,11 @@ import ManuallyAddNetwork from "../routes/networks/ManuallyAddNetwork"
 import SetupBridgePage from "../routes/bridge/BridgeSetupPage"
 import BridgeConfirmPage from "../routes/bridge/BridgeConfirmPage"
 import BridgeAfterAddTokenPage from "../routes/bridge/BridgeAfterAddTokenPage"
+import ActivityList from "../components/ActivityList"
 
 export const ROUTES_DEFINITION = [
     /* Root */
-    { path: "/home", exact: true, component: PopupPage },
+    { path: "/home", exact: true, component: HomePage },
     {
         path: "/release-notes/:version",
         exact: true,
@@ -71,6 +72,7 @@ export const ROUTES_DEFINITION = [
     { path: "/transaction/cancel", exact: true, component: CancelPage },
     { path: "/transaction/speedUp", exact: true, component: SpeedUpPage },
     { path: "/transaction/approve", exact: true, component: ApprovePage },
+    { path: "/transaction_history", exact: true, component: ActivityList },
     /* My Accounts */
     { path: "/accounts", exact: true, component: AccountsPage },
     {

@@ -367,41 +367,7 @@ const SwapPage = () => {
         : undefined
 
     return (
-        <PopupLayout
-            header={
-                <PopupHeader
-                    title="Swap"
-                    close="/"
-                    networkIndicator
-                    keepState
-                    onBack={() =>
-                        fromAssetPage
-                            ? history.push({
-                                  pathname: "/asset/details",
-                                  state: {
-                                      address: fromToken?.address,
-                                  },
-                              })
-                            : history.push("/home")
-                    }
-                />
-            }
-            footer={
-                <PopupFooter>
-                    <ButtonWithLoading
-                        label={
-                            error ? error : hasAllowance ? "Review" : "Approve"
-                        }
-                        disabled={!!(error || !quote)}
-                        isLoading={isLoading}
-                        onClick={onSubmit}
-                        buttonClass={classnames(
-                            error && `${Classes.redButton} opacity-100`
-                        )}
-                    />
-                </PopupFooter>
-            }
-        >
+        <div className="p-6 pt-24">
             {rate && tokenTo && quote ? (
                 <RateUpdateDialog
                     key={`${tokenTo.address}-${tokenFrom?.address}-${bigNumberAmount?._hex}`}
@@ -410,7 +376,7 @@ const SwapPage = () => {
                     rate={rate}
                 />
             ) : null}
-            <div className="flex flex-col p-6">
+            <div>
                 <div
                     className={classnames(
                         "flex flex-row",
@@ -531,7 +497,7 @@ const SwapPage = () => {
 
                 {/* Switch Inputs */}
                 <div className="pt-6">
-                    <hr className="-mx-5" />
+                    <hr/>
                     <button
                         type="button"
                         className="flex -translate-y-2/4 justify-center items-center mx-auto rounded-full w-8 h-8 border border-grey-200 bg-white z-10 cursor-pointer"
@@ -589,7 +555,7 @@ const SwapPage = () => {
             {remainingSuffix && (
                 <RefreshLabel value={remainingSuffix} className="ml-6 mt-12" />
             )}
-        </PopupLayout>
+            </div>
     )
 }
 

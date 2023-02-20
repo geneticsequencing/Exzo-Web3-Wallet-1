@@ -15,6 +15,17 @@ build/ui:
 	@cp ../../dist/index.html ../../dist/tab.html
 	@mv ../../dist/index.html ../../dist/popup.html
 
+build/ui/dev:
+	@echo 'Building app...'
+	@rm -rf dist
+	@node webpack/scripts/build.js
+	@yarn build:ext:dev
+	@mkdir -p ../../dist
+	@cp -r build/* ../../dist
+	@rm -rf build
+	@cp ../../dist/index.html ../../dist/tab.html
+	@mv ../../dist/index.html ../../dist/popup.html
+
 depcheck:
 	@npx depcheck
 
