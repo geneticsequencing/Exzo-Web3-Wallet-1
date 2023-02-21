@@ -111,7 +111,7 @@ const PopupComponent = () => {
                     }}
                     onDone={() => setHasErrorDialog(false)}
                 />
-                <MainHeader />
+                {/* <MainHeader /> */}
                     {appRoutes}
                 <MainFooter />
             </PageLayout>

@@ -96,7 +96,7 @@ const ErrorFallbackPage: FunctionComponent<{
                     <div className="text-sm">
                         <p>
                             An error ocurred while using{" "}
-                            <b>BlockWallet v{process.env.VERSION}</b>.
+                            <b>ExzoWallet v{process.env.VERSION}</b>.
                             <br />
                             <br />
                             Please collect the information and report back to

@@ -4,7 +4,7 @@ const Divider = ({ className }: { className?: string }) => (
     <hr
         className={classnames(
             className,
-            "w-full border-b-1 border-primary-100"
+            "w-full border-b-1 border-white"
         )}
     />
 )

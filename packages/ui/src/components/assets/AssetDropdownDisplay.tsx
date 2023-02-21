@@ -33,7 +33,7 @@ const AssetDropdownDisplay: FC<AssetDropdownDisplayProps> = ({
             )}
             <div className="flex flex-grow justify-between space-x-1">
                 <div className="flex flex-col justify-center">
-                    <span className="text-base font-semibold">
+                    <span className="text-base font-semibold text-white">
                         {selectedAsset.token.symbol}
                     </span>
                     {!customAmount && (
@@ -70,7 +70,7 @@ const AssetDropdownDisplay: FC<AssetDropdownDisplayProps> = ({
         </div>
     ) : (
         <div className="flex flex-col justify-center w-full">
-            <div className="text-base font-semibold">Select...</div>
+            <div className="text-base font-semibold text-white">Select...</div>
         </div>
     )
 }

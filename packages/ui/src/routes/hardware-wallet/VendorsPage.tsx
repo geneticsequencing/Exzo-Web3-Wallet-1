@@ -26,7 +26,7 @@ const HardwareWalletVendorsPage = () => {
     return (
         <HardwareWalletSetupLayout
             title="Connect Hardware Wallet"
-            subtitle="Select a Hardware Wallet you'd like to use with BlockWallet."
+            subtitle="Select a Hardware Wallet you'd like to use with ExzoWallet."
             buttons={
                 <ButtonWithLoading
                     label={"Continue"}

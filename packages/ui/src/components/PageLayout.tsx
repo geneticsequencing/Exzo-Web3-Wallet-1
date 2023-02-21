@@ -23,7 +23,7 @@ const PageLayout: FunctionComponent<{
     screen = false,
 }) => (
     <FullCenterContainer centered={centered} screen={screen}>
-        <div className="flex-1 flex flex-col items-center">
+        <div className={classnames("flex-1 flex flex-col items-center")}>
             {header ? (
                 <div className="mt-8 mb-4">
                     <LogoHeader />
@@ -37,7 +37,7 @@ const PageLayout: FunctionComponent<{
             >
                 <div
                     className={classnames(
-                        "flex-1 flex flex-col items-center shadow-lg bg-body-200",
+                        "flex-1 flex flex-col items-center shadow-lg bg-body-100 border-body-400 border-2",
                         screen ? "" : "rounded-md",
                         maxWidth || "max-w-2xl",
                         className

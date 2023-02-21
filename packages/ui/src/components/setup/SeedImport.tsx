@@ -273,13 +273,13 @@ const SeedImport: FunctionComponent<{
                             id="acceptTOU"
                             {...register("acceptTOU")}
                         />
-                        <label htmlFor="acceptTOU" className="text-xs">
+                        <label htmlFor="acceptTOU" className="text-xs text-white">
                             I have read and agree to the{" "}
                             <a
                                 href="https://blockwallet.io/terms-of-use-of-block-wallet.html"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-primary-300"
+                                className="text-body-balances-200"
                             >
                                 Terms of Use
                             </a>
@@ -302,7 +302,7 @@ const SeedImport: FunctionComponent<{
                     type="submit"
                     className={classnames(
                         Classes.button,
-                        "w-1/2 font-bold border-2 border-primary-300",
+                        "w-1/2 font-bold border-2 border-white bg-body-balances-100 text-body-balances-200",
                         (isLoading || isImportDisabled) &&
                             "opacity-50 pointer-events-none"
                     )}

@@ -19,7 +19,6 @@ const PopupLayout: FunctionComponent<{
     const fullHeader = (
         <>
             {header}
-            <hr className="border-0.5 border-gray-200 w-full" />
         </>
     )
 
@@ -42,7 +41,7 @@ const PopupLayout: FunctionComponent<{
                 {fullHeader}
             </div>
             <div className="invisible w-full">{fullHeader}</div>
-            <div className="flex-1 flex flex-col w-full h-0 max-h-screen overflow-auto main-content">
+            <div className="flex-1 flex flex-col w-full h-0 max-h-[476px] overflow-auto main-content">
                 {children}
             </div>
             {footer ? (

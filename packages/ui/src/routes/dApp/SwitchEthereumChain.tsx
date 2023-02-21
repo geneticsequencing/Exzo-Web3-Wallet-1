@@ -154,7 +154,7 @@ const SwitchEthereumChain: FunctionComponent<DappRequestProps> = ({
                         Allow this site to switch the network?
                     </span>
                     <span className="text-gray-500">
-                        This will switch the selected network within BlockWallet
+                        This will switch the selected network within ExzoWallet
                         to a previously added network:
                     </span>
                 </div>

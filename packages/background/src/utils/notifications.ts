@@ -11,7 +11,7 @@ import { getChainListItem } from './chainlist';
 
 export const showSetUpCompleteNotification = (): void => {
     const url = '';
-    const title = 'Block Wallet is ready!';
+    const title = 'Exzo Wallet is ready!';
     const message =
         "You've completed the set-up process. Check the extension in the upper right corner of your browser.";
 

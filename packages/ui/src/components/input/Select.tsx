@@ -116,7 +116,7 @@ const Select: FC<SelectProps> & CompoundProps = ({
             {label ? (
                 <label
                     htmlFor={id || "selectMenu"}
-                    className={classnames(Classes.inputLabel, "mb-1")}
+                    className={classnames(Classes.inputLabel, "mb-1 text-white")}
                 >
                     {label}
                 </label>
@@ -139,7 +139,7 @@ const Select: FC<SelectProps> & CompoundProps = ({
                         disabled,
                     })}
                 >
-                    <span>{selectLabel || placeholder}</span>
+                    <span className="text-white">{selectLabel || placeholder}</span>
                     {showMenu ? (
                         <RiArrowUpSLine size={20} />
                     ) : (

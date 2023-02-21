@@ -141,7 +141,7 @@ export const getLastFocusedWindow = (): Promise<chrome.windows.Window> => {
 };
 
 /**
- * Returns the block wallet's version
+ * Returns the exzo wallet's version
  *
  */
 export const getVersion = (): string => {

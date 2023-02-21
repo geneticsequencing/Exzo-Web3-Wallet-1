@@ -183,18 +183,18 @@ const SendPage = () => {
                     }}
                 />
             }
-            footer={
-                <PopupFooter>
-                    <ButtonWithLoading
-                        label="Next"
-                        disabled={!isAddress}
-                        onClick={onSubmit}
-                    />
-                </PopupFooter>
-            }
+            // footer={
+            //     <PopupFooter>
+            //         <ButtonWithLoading
+            //             label="Next"
+            //             disabled={!isAddress}
+            //             onClick={onSubmit}
+            //         />
+            //     </PopupFooter>
+            // }
         >
             {/* Search or Input */}
-            <div className="flex flex-col space-y-2 fixed w-full bg-white z-10">
+            <div className="flex flex-col space-y-2 fixed w-full z-10">
                 <div className="w-full p-6 pb-0">
                     <SearchInput
                         label="Enter public address, name or select contact"
@@ -237,6 +237,12 @@ const SendPage = () => {
                     filter={searchString}
                     onSelect={onAccountSelect}
                 />
+            </div>
+            <div className="absolute bottom-20 left-0 z-10 flex items-center justify-center w-full px-10">
+                <button className="py-3 rounded-md text-sm bg-gray-900 text-white w-full disabled:hover:bg-gray-900 disabled:opacity-60 
+                    hover:bg-gray-800 border-gray-900 hover:border-gray-800"
+                    disabled={!isAddress}
+                    onClick={onSubmit}> Next </button>
             </div>
         </PopupLayout>
     )

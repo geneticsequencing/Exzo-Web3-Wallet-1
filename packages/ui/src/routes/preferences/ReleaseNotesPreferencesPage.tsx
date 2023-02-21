@@ -42,7 +42,7 @@ const ReleaseNotesPreferencesPage = () => {
         >
             <div className="flex flex-col p-6 space-y-6 w-full">
                 <span className="text-sm text-gray-500">
-                    Be up-to-date with latest BlockWallet news.
+                    Be up-to-date with latest ExzoWallet news.
                 </span>
                 <SuccessDialog
                     open={isSuccess}

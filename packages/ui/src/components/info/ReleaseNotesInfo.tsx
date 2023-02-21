@@ -45,7 +45,7 @@ const ReleaseNotesInfo: FC<ReleaseNotesInfoProps> = ({
         >
             <div className="w-full p-6 bg-white bg-opacity-75 scroll-smooth overflow-y-scroll">
                 <Info>
-                    <Info.Title>What's new on BlockWallet</Info.Title>
+                    <Info.Title>What's new on ExzoWallet</Info.Title>
                     <div className="p-1 pt-6">
                         {Object.keys(notesGroupedByTitle).map((title) => {
                             const notes = notesGroupedByTitle[title]

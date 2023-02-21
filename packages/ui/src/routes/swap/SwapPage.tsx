@@ -40,6 +40,8 @@ import { useCallback } from "react"
 import { useTokenBalance } from "../../context/hooks/useTokenBalance"
 import { GetAmountYupSchema } from "../../util/yup/GetAmountSchema"
 import { ApproveOperation } from "../transaction/ApprovePage"
+import SwapIcon from "../../components/icons/SwapIcon"
+import SwapIconHover from "../../components/icons/SwapIconHover"
 
 interface SwapPageLocalState {
     fromToken?: Token
@@ -367,64 +369,126 @@ const SwapPage = () => {
         : undefined
 
     return (
-        <div className="p-6 pt-24">
-            {rate && tokenTo && quote ? (
-                <RateUpdateDialog
-                    key={`${tokenTo.address}-${tokenFrom?.address}-${bigNumberAmount?._hex}`}
-                    assetName={tokenTo.symbol}
-                    assetDecimals={tokenTo.decimals}
-                    rate={rate}
-                />
-            ) : null}
-            <div>
-                <div
-                    className={classnames(
-                        "flex flex-row",
-                        // Error message height
-                        !errors.amount?.message && "mb-[22px]"
-                    )}
-                >
-                    {/* Asset */}
-                    <div className="flex flex-col space w-1/2 pr-1.5">
-                        <p className="mb-2 text-sm text-gray-600">Swap From</p>
+        <>
+            <div className="absolute top-0 left-0 w-full popup-layout z-10">
+                <PopupHeader title="home" backButton={false}/>
+            </div>
+            <div className="p-6 pt-24">
+                <div className="text-white text-2xl mb-8">Swap Assets</div>
+                {rate && tokenTo && quote ? (
+                    <RateUpdateDialog
+                        key={`${tokenTo.address}-${tokenFrom?.address}-${bigNumberAmount?._hex}`}
+                        assetName={tokenTo.symbol}
+                        assetDecimals={tokenTo.decimals}
+                        rate={rate}
+                    />
+                ) : null}
+                <div>
+                    <div
+                        className={classnames(
+                            "flex flex-row",
+                            // Error message height
+                            !errors.amount?.message && "mb-[22px]"
+                        )}
+                    >
+                        {/* Asset */}
+                        <div className="flex flex-col space w-full pr-1.5">
+                            {/* <p className="mb-2 text-sm text-gray-600">Swap From</p> */}
+                            <AssetSelection
+                                selectedAssetList={AssetListType.DEFAULT}
+                                selectedAsset={
+                                    tokenFrom && tokenFromBalance
+                                        ? {
+                                            token: tokenFrom,
+                                            balance: tokenFromBalance,
+                                        }
+                                        : undefined
+                                }
+                                onAssetChange={(asset) => {
+                                    //Before assigning 'from' we check if it is not the same as 'to'. If that is the case we swap the inputs
+                                    if (asset.token.address === tokenTo?.address) {
+                                        switchInputs()
+                                    } else {
+                                        setQuote(undefined)
+                                        setSwapDataState((prev: SwapState) => ({
+                                            ...prev,
+                                            tokenFrom: asset.token,
+                                        }))
+                                    }
+                                }}
+                                topMargin={100}
+                                bottomMargin={60}
+                                dropdownWidth="w-[309px]"
+                                assetBalanceClassName="w-24"
+                                addTokenState={{
+                                    redirectTo: "/swap/afterAddToken",
+                                    tokenTarget: "from",
+                                    fromToken: tokenFrom,
+                                    toToken: tokenTo,
+                                }}
+                            />
+                            <hr />  
+                        </div>
+                    </div>
+
+                    {/* Switch Inputs */}
+                    {/* <div className="pt-6">
+                        <hr/>
+                        <button
+                            type="button"
+                            className="flex -translate-y-2/4 justify-center items-center mx-auto rounded-full w-8 h-8 border border-grey-200 bg-white z-10 cursor-pointer"
+                            onClick={switchInputs}
+                            disabled={!canSwitchInputs}
+                        >
+                            <img
+                                src={swapIcon}
+                                className="h-4 w-auto mx-auto"
+                                alt="swap"
+                            />
+                        </button>
+                    </div> */}
+                    <div className="flex flex-col space w-full pr-1.5">
+                        {/* <p className="text-sm text-gray-600 pb-3">Swap To</p> */}
                         <AssetSelection
-                            selectedAssetList={AssetListType.DEFAULT}
+                            displayIcon
+                            selectedAssetList={AssetListType.ALL}
                             selectedAsset={
-                                tokenFrom && tokenFromBalance
+                                tokenTo
                                     ? {
-                                          token: tokenFrom,
-                                          balance: tokenFromBalance,
-                                      }
+                                        token: tokenTo,
+                                        balance: BigNumber.from(0),
+                                    }
                                     : undefined
                             }
                             onAssetChange={(asset) => {
-                                //Before assigning 'from' we check if it is not the same as 'to'. If that is the case we swap the inputs
-                                if (asset.token.address === tokenTo?.address) {
+                                //Before assigning 'to' we check if it is not the same as 'from'. If that is the case we swap the inputs
+                                if (asset.token.address === tokenFrom?.address) {
                                     switchInputs()
                                 } else {
                                     setQuote(undefined)
                                     setSwapDataState((prev: SwapState) => ({
                                         ...prev,
-                                        tokenFrom: asset.token,
+                                        tokenTo: asset.token,
                                     }))
                                 }
                             }}
-                            topMargin={100}
-                            bottomMargin={60}
-                            dropdownWidth="w-[309px]"
-                            assetBalanceClassName="w-24"
+                            customAmount={BigNumber.from(quote?.toTokenAmount || 0)}
+                            topMargin={50}
+                            bottomMargin={200}
                             addTokenState={{
                                 redirectTo: "/swap/afterAddToken",
-                                tokenTarget: "from",
+                                tokenTarget: "to",
                                 fromToken: tokenFrom,
                                 toToken: tokenTo,
                             }}
                         />
+                        <hr />
                     </div>
 
                     {/* Amount */}
-                    <div className="flex flex-col w-1/2 pl-1.5">
-                        <div className="flex flex-row items-center space-x-1 mb-2">
+                    <div className="flex flex-col w-2/3 mt-12">
+                        {/** max button */}
+                        {/* <div className="flex flex-row items-center space-x-1 mb-2">
                             <span
                                 className={classnames(
                                     "ml-auto text-sm",
@@ -445,13 +509,13 @@ const SwapPage = () => {
                             >
                                 Max
                             </span>
-                        </div>
+                        </div> */}
                         <div
                             className={classnames(
-                                "flex flex-col items-stretch rounded-md p-4 h-[4.5rem] hover:bg-primary-200 w-full",
+                                "flex flex-col items-stretch rounded-md p-4 w-full",
                                 inputFocus
-                                    ? "bg-primary-200"
-                                    : "bg-primary-100",
+                                    ? ""
+                                    : "",
                                 errors.amount
                                     ? "border-red-400"
                                     : "border-opacity-0 border-transparent"
@@ -465,7 +529,7 @@ const SwapPage = () => {
                                     onUpdateAmount(e.target.value)
                                 }}
                                 maxLength={80}
-                                className="p-0 text-base bg-transparent border-none font-semibold -mt-0.5"
+                                className="p-0 text-xl bg-transparent border-none text-white"
                                 placeholder={`0.0 ${
                                     tokenFrom ? tokenFrom.symbol : ""
                                 }`}
@@ -474,88 +538,45 @@ const SwapPage = () => {
                                 onFocus={() => setInputFocus(true)}
                                 onBlur={() => setInputFocus(false)}
                             />
-                            <p
-                                className={classnames(
-                                    "text-xs text-gray-600 mt-1",
-                                    !formattedAmount && "hidden"
-                                )}
-                            >
-                                {formattedAmount}
-                            </p>
+                        </div>
+                        <hr />
+                        <p
+                            className={classnames(
+                                "text-xs text-gray-600 mt-1",
+                                !formattedAmount && "hidden"
+                            )}
+                        >
+                            {formattedAmount}
+                        </p>
+                        <div
+                            className={classnames(
+                                "mt-1",
+                                !errors.amount?.message && "hidden"
+                            )}
+                        >
+                            <ErrorMessage>{errors.amount?.message}</ErrorMessage>
                         </div>
                     </div>
-                </div>
 
-                <div
-                    className={classnames(
-                        "mt-1",
-                        !errors.amount?.message && "hidden"
+                    {swapFee && (
+                        <div className="flex items-center pt-2 text-xs text-gray-600 mr-1 mt-2">
+                            <span>{`ExzoWallet fee (${BASE_SWAP_FEE}%): ${swapFee}`}</span>
+                        </div>
                     )}
-                >
-                    <ErrorMessage>{errors.amount?.message}</ErrorMessage>
                 </div>
-
-                {/* Switch Inputs */}
-                <div className="pt-6">
-                    <hr/>
-                    <button
-                        type="button"
-                        className="flex -translate-y-2/4 justify-center items-center mx-auto rounded-full w-8 h-8 border border-grey-200 bg-white z-10 cursor-pointer"
-                        onClick={switchInputs}
-                        disabled={!canSwitchInputs}
-                    >
-                        <img
-                            src={swapIcon}
-                            className="h-4 w-auto mx-auto"
-                            alt="swap"
-                        />
+                <div className="w-full mt-6">
+                    <button className="text-base p-3 bg-body-balances-100 w-full rounded-lg text-body-balances-200">
+                        <div className="flex items-center justify-center">
+                            <SwapIconHover /> 
+                            <div className="ml-2.5">Swap 0.00 ETH</div>
+                        </div>
                     </button>
                 </div>
-
-                <p className="text-sm text-gray-600 pb-3">Swap To</p>
-                <AssetSelection
-                    displayIcon
-                    selectedAssetList={AssetListType.ALL}
-                    selectedAsset={
-                        tokenTo
-                            ? {
-                                  token: tokenTo,
-                                  balance: BigNumber.from(0),
-                              }
-                            : undefined
-                    }
-                    onAssetChange={(asset) => {
-                        //Before assigning 'to' we check if it is not the same as 'from'. If that is the case we swap the inputs
-                        if (asset.token.address === tokenFrom?.address) {
-                            switchInputs()
-                        } else {
-                            setQuote(undefined)
-                            setSwapDataState((prev: SwapState) => ({
-                                ...prev,
-                                tokenTo: asset.token,
-                            }))
-                        }
-                    }}
-                    customAmount={BigNumber.from(quote?.toTokenAmount || 0)}
-                    topMargin={50}
-                    bottomMargin={200}
-                    addTokenState={{
-                        redirectTo: "/swap/afterAddToken",
-                        tokenTarget: "to",
-                        fromToken: tokenFrom,
-                        toToken: tokenTo,
-                    }}
-                />
-                {swapFee && (
-                    <div className="flex items-center pt-2 text-xs text-gray-600 pt-0.5 mr-1 mt-2">
-                        <span>{`BlockWallet fee (${BASE_SWAP_FEE}%): ${swapFee}`}</span>
-                    </div>
+                {remainingSuffix && (
+                    <RefreshLabel value={remainingSuffix} className="ml-6 mt-12" />
                 )}
             </div>
-            {remainingSuffix && (
-                <RefreshLabel value={remainingSuffix} className="ml-6 mt-12" />
-            )}
-            </div>
+        </>
     )
 }
 

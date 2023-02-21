@@ -103,7 +103,7 @@ export default class BlockUpdatesController extends BaseController<BlockUpdatesC
      * It sets if there is at least one active subscription to the background
      *
      * @param isUnlocked Whether the extension is unlocked or not
-     * @param activeSubscription If there is any block wallet instance active.
+     * @param activeSubscription If there is any exzo wallet instance active.
      */
     public setActiveSubscriptions(
         isUnlocked: boolean,

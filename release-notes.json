@@ -8,7 +8,7 @@
                     "notes": [
                         {
                             "type": "success",
-                            "message": "Added support for certain DApp requests - BlockWallet now supports many new DApps!"
+                            "message": "Added support for certain DApp requests - ExzoWallet now supports many new DApps!"
                         },
                         {
                             "type": "success",
@@ -43,7 +43,7 @@
                     "notes": [
                         {
                             "type": "success",
-                            "message": "Added feature to turn off BlockWallet being the default wallet in the settings. Now also other browser wallets can be used!"
+                            "message": "Added feature to turn off ExzoWallet being the default wallet in the settings. Now also other browser wallets can be used!"
                         },
                         {
                             "type": "success",
@@ -78,7 +78,7 @@
                     "notes": [
                         {
                             "type": "success",
-                            "message": "Release of the BlockWallet phishing protection! A unique piece of generative art on certain wallet pages will now protect you against different phishing attacks."
+                            "message": "Release of the ExzoWallet phishing protection! A unique piece of generative art on certain wallet pages will now protect you against different phishing attacks."
                         },
                         {
                             "type": "success",
@@ -258,7 +258,7 @@
                     "notes": [
                         {
                             "type": "success",
-                            "message": "Swaps: you can now swap assets directly within BlockWallet."
+                            "message": "Swaps: you can now swap assets directly within ExzoWallet."
                         },
                         {
                             "type": "success",
@@ -363,7 +363,7 @@
                     "notes": [
                         {
                             "type": "success",
-                            "message": "Introducing BlockWallet Bridges: now you can bridge assets directly inside BlockWallet."
+                            "message": "Introducing ExzoWallet Bridges: now you can bridge assets directly inside ExzoWallet."
                         },
                         {
                             "type": "success",

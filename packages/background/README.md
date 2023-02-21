@@ -1,4 +1,4 @@
-# [Block Wallet Extension](https://blockwallet.io/) background
+# [Exzo Wallet Extension](https://exzowallet.io/) background
 
 [![CI](../../workflows/Tests/badge.svg)](../../actions?query=Test)
 

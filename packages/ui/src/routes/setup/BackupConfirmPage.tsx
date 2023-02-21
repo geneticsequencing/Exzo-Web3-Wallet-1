@@ -72,7 +72,7 @@ const SeedWordsInput: FunctionComponent<{
                     <button
                         type="button"
                         key={`${wordObj.word}_${index}`}
-                        className="bg-gray-900 text-white rounded-md py-2"
+                        className="bg-body-balances-100 text-white rounded-md py-2"
                         style={{ height: "fit-content" }}
                         onClick={() => handleWordClick(wordObj, index, true)}
                     >
@@ -88,8 +88,8 @@ const SeedWordsInput: FunctionComponent<{
                         className={classnames(
                             "rounded-md py-3 border",
                             wordObj.isSelected
-                                ? "border-transparent bg-gray-900 text-white"
-                                : "border-primary-100 text-gray-900"
+                                ? "border-transparent bg-body-balances-100 text-white"
+                                : "border-primary-100 text-white"
                         )}
                         onClick={() => {
                             return handleWordClick(wordObj, index, false)
@@ -116,7 +116,7 @@ const SeedPhraseBlock = (props: any) => {
     return (
         <div
             className={classnames(
-                "flex flex-col text-gray-600 text-sm",
+                "flex flex-col text-white text-sm",
                 isReminder ? "space-y-6 p-4" : "space-y-8 p-8"
             )}
         >
@@ -237,7 +237,7 @@ const BackupConfirmPage = () => {
                     maxWidth={isReminder ? "" : "max-w-md"}
                     className={"text-center"}
                 >
-                    <span className="font-bold my-6 font-title text-lg">
+                    <span className="font-bold my-6 font-title text-lg text-white">
                         Confirm Seed Phrase
                     </span>
                     <Divider />
@@ -256,7 +256,7 @@ const BackupConfirmPage = () => {
                                 pathname: backLink,
                                 state: { seedPhrase, password },
                             }}
-                            className={Classes.liteButton}
+                            className={Classes.backButton}
                             draggable={false}
                         >
                             Back
@@ -265,7 +265,7 @@ const BackupConfirmPage = () => {
                             type="button"
                             className={classnames(
                                 Classes.button,
-                                "font-bold border-2 border-primary-300",
+                                "font-bold border-2 border-body-balances-300",
                                 (!isPhraseValid() ||
                                     isVerificationInProgress) &&
                                     "opacity-50 pointer-events-none"

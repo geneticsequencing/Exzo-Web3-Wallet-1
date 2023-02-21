@@ -281,7 +281,7 @@ const AddEthereumChain: FunctionComponent<DappRequestProps> = ({
                     </span>
                     <span className="text-gray-500">
                         This will allow this network to be used within
-                        BlockWallet
+                        ExzoWallet
                     </span>
                 </div>
                 <div className="flex flex-col border border-gray-200 rounded-lg space-y-2 px-4 py-3">
@@ -391,7 +391,7 @@ const AddEthereumChain: FunctionComponent<DappRequestProps> = ({
                 </div>
                 {/* Info component */}
                 <InfoComponent className="pb-2">
-                    BlockWallet does not verify custom networks. Make sure you
+                    ExzoWallet does not verify custom networks. Make sure you
                     understand{" "}
                     <a
                         className="underline text-blue-600 hover:text-blue-800"

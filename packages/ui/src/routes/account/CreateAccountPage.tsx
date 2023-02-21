@@ -71,7 +71,7 @@ const CreateAccountPage = () => {
                 <CreateAccountCard
                     title="Create Account"
                     iconName={IconName.WALLET}
-                    description="Create a new account from the seed stored in BlockWallet."
+                    description="Create a new account from the seed stored in ExzoWallet."
                     onClick={() => history.push("/accounts/create/add")}
                 />
                 <CreateAccountCard

@@ -65,14 +65,14 @@ const DefaultWalletPreferencesPage: FC<DefaultWalletPreferencesProps> = ({
             }
         >
             <div className="flex flex-col p-6 space-y-6 w-full">
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-white">
                     {wasDefaultBrowserWallet ? (
                         <span>
-                            BlockWallet is set as your default browser wallet.
+                            ExzoWallet is set as your default browser wallet.
                         </span>
                     ) : (
                         <span>
-                            BlockWallet is not set as your default browser
+                            ExzoWallet is not set as your default browser
                             wallet.
                         </span>
                     )}
@@ -96,10 +96,10 @@ const DefaultWalletPreferencesPage: FC<DefaultWalletPreferencesProps> = ({
                     onToggle={setDefaultBrowserWallet}
                 />
 
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-white">
                     {wasDefaultBrowserWallet ? (
                         <span>
-                            Turning this off will make BlockWallet unable to
+                            Turning this off will make ExzoWallet unable to
                             connect to DApps in case you have more than one
                             wallet installed in your browser. Turn it off if you
                             want a different browser wallet to connect to the
@@ -107,9 +107,9 @@ const DefaultWalletPreferencesPage: FC<DefaultWalletPreferencesProps> = ({
                         </span>
                     ) : (
                         <span>
-                            Turning this on will make BlockWallet connect to
+                            Turning this on will make ExzoWallet connect to
                             DApps by default. Turn it on if you want to use
-                            BlockWallet to connect to DApps, instead of other
+                            ExzoWallet to connect to DApps, instead of other
                             browser wallets.
                         </span>
                     )}

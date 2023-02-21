@@ -84,7 +84,7 @@ const AddTokenListView = ({
                         <div className="w-20 h-20 bg-primary-100 rounded-full relative z-0"></div>
                     </div>
                     <span className="text-sm text-gray-600 text-center">
-                        Add the tokens that you've acquired using BlockWallet.
+                        Add the tokens that you've acquired using ExzoWallet.
                         <br />
                         Enter an address for adding a custom token.
                     </span>

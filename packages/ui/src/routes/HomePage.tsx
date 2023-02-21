@@ -44,6 +44,7 @@ import AssetsList from "../components/AssetsList"
 import ArrowIcon from "../components/icons/ArrowIcon"
 import { BsCurrencyBitcoin } from "react-icons/bs"
 import BuyIcon from "../components/icons/BuyIcon"
+import PopupHeader from "../components/popup/PopupHeader"
 
 const AccountDisplay = () => {
     const accountAddress = useSelectedAddressWithChainIdChecksum()
@@ -157,6 +158,9 @@ const HomePage = () => {
 
     return (
         <>
+            <div className="absolute top-0 left-0 w-full popup-layout z-10">
+                <PopupHeader title="home" backButton={false}/>
+            </div>
             {state.isNetworkChanging && <TransparentOverlay />}
             <div className="flex flex-col items-start flex-1 w-full max-h-screen p-6 pt-24 space-y-2 overflow-auto hide-scroll">
                 <div className="w-full">
@@ -217,7 +221,7 @@ const HomePage = () => {
                         </TokenSummary.Balances>
                         <TokenSummary.Actions>
                             <Link
-                                to="/send"
+                                to="/bridge"
                                 draggable={false}
                                 className={classnames(
                                     "flex flex-row items-center space-y-2 group w-full",
@@ -291,7 +295,7 @@ const HomePage = () => {
                             )}
                             {isBridgeEnabled && (
                                 <Link
-                                    to="/bridge"
+                                    to="/send"
                                     draggable={false}
                                     className={classnames(
                                         "flex flex-row items-center space-y-2 group w-full",

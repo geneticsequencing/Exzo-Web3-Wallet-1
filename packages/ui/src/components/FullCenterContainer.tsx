@@ -8,7 +8,7 @@ const FullCenterContainer: FunctionComponent<{
     children: React.ReactNode
 }> = ({ children, centered = false, screen = false }) => (
     <div
-        className="w-full min-h-full flex bg-primary-100"
+        className="w-full min-h-full flex bg-body-300"
         style={screen ? {} : { height: "fit-content" }}
     >
         <div

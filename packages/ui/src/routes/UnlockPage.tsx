@@ -13,7 +13,7 @@ import AntiPhishing from "../components/phishing/AntiPhishing"
 import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm } from "react-hook-form"
-import logo from "../assets/images/logo.svg"
+import logo from "../assets/exzo-images/images/logo.png"
 
 import { unlockApp, requestSeedPhrase } from "../context/commActions"
 import { openReset } from "../context/commActions"
@@ -105,9 +105,10 @@ const UnlockPage = () => {
         <PopupLayout
             header={
                 <PopupHeader
-                    title="Unlock Appasdfasdfasdf"
+                    title="Unlock App"
                     close={false}
                     backButton={false}
+                    lockStatus={true}
                 >
                     {lockedByTimeout && (
                         <div className="group relative">
@@ -152,8 +153,8 @@ const UnlockPage = () => {
             />
             <div className="p-6 pb-0 flex flex-col space-y-8">
                 <div className="flex flex-col space-y-2">
-                    <img src={logo} alt="logo" className="w-12 h-12 mx-auto" />
-                    <span className="text-center text-base font-bold font-title">
+                    <img src={logo} alt="logo" className="w-8 h-8 mx-auto" />
+                    <span className="text-center text-base text-white">
                         Enter your password to continue.
                     </span>
                 </div>
@@ -165,7 +166,7 @@ const UnlockPage = () => {
                         error={errors.password?.message}
                         autoFocus={isUserNetworkOnline}
                     />
-                    <div>
+                    <div className="text-white">
                         or&nbsp;
                         <ClickableText onClick={() => setHasDialog(true)}>
                             reset wallet using seed phrase

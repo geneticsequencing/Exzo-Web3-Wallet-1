@@ -1,3 +1,5 @@
+import { useErrorHandler } from "react-error-boundary"
+
 import classnames from "classnames"
 import { FunctionComponent, useEffect, useState } from "react"
 
@@ -8,12 +10,59 @@ import {
 import { useSelectedNetwork } from "../../context/hooks/useSelectedNetwork"
 import NetworkDisplayBadge from "../chain/NetworkDisplayBadge"
 
-import AppIcon from "../icons/AppIcon"
+//context
+import { useBlankState } from "../../context/background/backgroundHooks"
+import { lockApp } from "../../context/commActions"
 
+//style
+import { Classes } from "../../styles/classes"
+
+//icon
+import logoutIcon from "../../assets/images/icons/logout.svg"
+import AppIcon from "../icons/AppIcon"
 import CloseIcon from "../icons/CloseIcon"
 import ArrowIcon from "../icons/ArrowIcon"
 import Dropdown from "../ui/Dropdown/Dropdown"
 import { DropdownMenuItem } from "../ui/Dropdown/DropdownMenu"
+import { Link } from "react-router-dom"
+import VectorIcon from "../icons/VectorIcon"
+import Tooltip from "../label/Tooltip"
+import AccountIcon from "../icons/AccountIcon"
+import { getAccountColor } from "../../util/getAccountColor"
+import { useSelectedAddressWithChainIdChecksum } from "../../util/hooks/useSelectedAddressWithChainIdChecksum"
+import { useSelectedAccount } from "../../context/hooks/useSelectedAccount"
+import { formatHash, formatName } from "../../util/formatAccount"
+import CopyIcon from "../icons/CopyIcon"
+import CopyTooltip from "../label/СopyToClipboardTooltip"
+
+
+const AccountDisplay = () => {
+    const accountAddress = useSelectedAddressWithChainIdChecksum()
+    const account = useSelectedAccount()
+    const [copied, setCopied] = useState(false)
+    const copy = async () => {
+        await navigator.clipboard.writeText(accountAddress)
+        setCopied(true)
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        setCopied(false)
+    }
+    return (
+        <button
+            type="button"
+            className="relative flex flex-col group"
+            onClick={copy}
+        >
+            <span className="text-sm font-bold text-white" data-testid="account-name">
+                {formatName(account.name, 18)}
+            </span>
+            <span className="text-sm truncate text-white flex items-center">
+                {formatHash(accountAddress)}
+                <CopyIcon />
+            </span>
+            <CopyTooltip copied={copied} />
+        </button>
+    )
+}
 
 export interface PopupHeaderProps {
     title: string
@@ -29,6 +78,7 @@ export interface PopupHeaderProps {
     children?: React.ReactNode | undefined
     className?: string
     goBackState?: object
+    lockStatus?: boolean
 }
 
 const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
@@ -45,6 +95,7 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
     actions,
     className,
     goBackState,
+    lockStatus = false,
 }) => {
     const history = useOnMountHistory()
     const lastLocation = useOnMountLastLocation()
@@ -53,6 +104,10 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
     const [fromAction, setFromAction] = useState(false)
 
     const [mounted, setMounted] = useState(false)
+    const checksumAddress = useSelectedAddressWithChainIdChecksum()
+    
+    const { isSeedPhraseBackedUp, isImportingDeposits } = useBlankState()!
+    const handleError = useErrorHandler()
 
     useEffect(() => {
         setFromAction(history.location.state?.fromAction)
@@ -62,109 +117,233 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const logout = () => {
+        try {
+            if (!isImportingDeposits) {
+                lockApp()
+            }
+        } catch {
+            handleError("Error logging out")
+        }
+    }
+
+    {"absolute top-0 left-0 z-10 flex flex-col items-start w-full px-5 py-3 bg-header-100 popup-layout"}
+    {"absolute top-0 left-0 w-full popup-layout z-10"}
     return (
         <div
             className={classnames(
-                "z-10 flex flex-row items-center p-6 bg-white bg-opacity-75 max-w-full",
+                "flex flex-row w-full items-center px-5 py-3 bg-header-100 max-w-full popup-layout",
                 className
             )}
-            style={{ backdropFilter: "blur(4px)", minHeight: "76px" }}
+            style={{ backdropFilter: "blur(4px)", minHeight: "61px" }}
         >
             {backButton && (
-                <button
-                    type="button"
-                    onClick={(e) => {
-                        if (onBack) return onBack(e)
+                <div className="flex items-center justify-between w-full">
+                    <div>
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                if (onBack) return onBack(e)
 
-                        //means there is no stack at all and we don't were to go
-                        //as the history hasn't been restored.
-                        //Also, we don't have the lastLocation as the extension may have been closed
-                        //and restored using the localStorage (useLocationRecovery).
-                        //Therefore, we return to home.
-                        if (history.length <= 1) {
-                            return history.replace("/")
-                        }
-
-                        if (keepState || goBackState) {
-                            let newState = {}
-                            if (keepState) {
-                                newState = lastLocation?.state
-                                    ? (lastLocation?.state as any & {
-                                          keepState: true
-                                      })
-                                    : {}
-                            }
-                            if (goBackState) {
-                                newState = {
-                                    ...newState,
-                                    ...goBackState,
+                                //means there is no stack at all and we don't were to go
+                                //as the history hasn't been restored.
+                                //Also, we don't have the lastLocation as the extension may have been closed
+                                //and restored using the localStorage (useLocationRecovery).
+                                //Therefore, we return to home.
+                                if (history.length <= 1) {
+                                    return history.replace("/")
                                 }
-                            }
-                            return history.replace({
-                                pathname: lastLocation?.pathname,
-                                state: newState,
-                            })
-                        }
-                        fromAction ? history.go(-3) : history.goBack()
-                    }}
-                    disabled={disabled || !mounted}
-                    className={classnames(
-                        "p-2 -ml-2 mr-1 cursor-pointer transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300",
-                        disabled && "pointer-events-none text-gray-300"
-                    )}
-                >
-                    <ArrowIcon direction={"down"}/>
-                </button>
+
+                                if (keepState || goBackState) {
+                                    let newState = {}
+                                    if (keepState) {
+                                        newState = lastLocation?.state
+                                            ? (lastLocation?.state as any & {
+                                                keepState: true
+                                            })
+                                            : {}
+                                    }
+                                    if (goBackState) {
+                                        newState = {
+                                            ...newState,
+                                            ...goBackState,
+                                        }
+                                    }
+                                    return history.replace({
+                                        pathname: lastLocation?.pathname,
+                                        state: newState,
+                                    })
+                                }
+                                fromAction ? history.go(-3) : history.goBack()
+                            }}
+                            disabled={disabled || !mounted}
+                            className={classnames(
+                                "p-2 -ml-2 mr-1 cursor-pointer transition duration-300 rounded-lg hover:bg-body-assets-200 text-white hover:text-black",
+                                disabled && "pointer-events-none text-gray-300"
+                            )}
+                        >
+                            <div className="flex items-center">
+                                <ArrowIcon direction={"left"}/>
+                                <span
+                                        title={title}
+                                        className={classnames("text-base font-bold ml-1.5", icon && "w-56")}
+                                    >
+                                        {/* {title} */}
+                                        Back
+                                </span>
+
+                            </div>
+                        </button>
+                    </div>
+                    {
+                        title === "Settings" &&
+                            <div>
+                                <button
+                                        type="button"
+                                        onClick={logout}
+                                        className={classnames(
+                                            !isImportingDeposits
+                                                ? Classes.logoutButton
+                                                : Classes.disabledLogoutButton,
+                                            "h-2.5 p-4"
+                                        )}
+                                        disabled={isImportingDeposits}
+                                    >
+                                        <img
+                                            alt="Logout"
+                                            src={logoutIcon}
+                                            className={classnames(
+                                                Classes.buttonIcon, "mr-0",
+                                                isImportingDeposits && "opacity-30"
+                                            )}
+                                        />
+                                        {/* Logout */}
+                                </button>
+                            </div>
+                    }
+                </div>
+                
             )}
+            {
+                lockStatus && 
+                    <span
+                            title={title}
+                            className={classnames("text-base font-bold ml-1.5 text-white", icon && "w-56")}
+                        >
+                            {title}
+                    </span>
+            }
             {icon && (
                 <div className="pr-3">
                     <AppIcon iconURL={icon} size={10} />
                 </div>
             )}
-            <span
-                title={title}
-                className={classnames("text-base font-bold", icon && "w-56")}
-            >
-                {title}
-            </span>
-            <div className="ml-auto flex space-x-1">
-                {actions && (
-                    <Dropdown>
-                        <Dropdown.Menu id="popup-actions">
-                            {actions.map((action, idx) => {
-                                return (
-                                    <DropdownMenuItem key={idx}>
-                                        {action}
-                                    </DropdownMenuItem>
-                                )
-                            })}
-                        </Dropdown.Menu>
-                    </Dropdown>
-                )}
-                {networkIndicator && (
-                    <NetworkDisplayBadge truncate network={network} />
-                )}
-                {close && (
-                    <button
-                        onClick={(e) => {
-                            if (onClose) return onClose(e)
-                            history.push(
-                                typeof close === "string" ? close : "/home"
-                            )
-                        }}
-                        disabled={disabled}
-                        className={classnames(
-                            "p-2 -mr-2 transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300",
-                            disabled && "pointer-events-none text-gray-300"
-                        )}
-                        type="button"
-                    >
-                        <CloseIcon />
-                    </button>
-                )}
-            </div>
-
-            {children}
+            {
+                backButton && (
+                    <>
+                        <div className="ml-auto flex space-x-1">
+                            {actions && (
+                                <Dropdown>
+                                    <Dropdown.Menu id="popup-actions">
+                                        {actions.map((action, idx) => {
+                                            return (
+                                                <DropdownMenuItem key={idx}>
+                                                    {action}
+                                                </DropdownMenuItem>
+                                            )
+                                        })}
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            )}
+                            {/* {networkIndicator && (
+                                <NetworkDisplayBadge truncate network={network} />
+                            )} */}
+                            {/* {close && (
+                                <button
+                                    onClick={(e) => {
+                                        if (onClose) return onClose(e)
+                                        history.push(
+                                            typeof close === "string" ? close : "/home"
+                                        )
+                                    }}
+                                    disabled={disabled}
+                                    className={classnames(
+                                        "p-2 -mr-2 transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300",
+                                        disabled && "pointer-events-none text-gray-300"
+                                    )}
+                                    type="button"
+                                >
+                                    <CloseIcon />
+                                </button>
+                            )} */}
+                        </div>
+                    </>)
+            }
+            {
+                backButton && children
+            }        
+            {
+                !backButton && !lockStatus && (
+                    <div className="flex flex-row items-center justify-between w-full">
+                        <div className="flex flex-row items-center space-x-3">
+                            <div className="relative flex flex-col items-start group">
+                                <Link
+                                    // to="/accounts"
+                                    to="#/"
+                                    className="transition duration-300"
+                                    draggable={false}
+                                    data-testid="navigate-account-link"
+                                >
+                                    <AccountIcon
+                                        className="transition-transform duration-200 ease-in transform hover:rotate-180"
+                                        fill={getAccountColor(checksumAddress)}
+                                    />
+                                </Link>
+                                <Tooltip
+                                    className="pointer-events-none absolute bottom-0 -mb-2 transform !translate-x-0 !translate-y-full p-2 rounded-md text-xs font-bold bg-gray-900 text-white"
+                                    content={
+                                        <>
+                                            <div className="border-t-4 border-r-4 border-gray-900 absolute top-0 left-2 w-2 h-2 -mt-2.5 transform -rotate-45 -translate-x-1/2" />
+                                            <span>My Accounts</span>
+                                        </>
+                                    }
+                                />
+                            </div>
+                            <div className="flex flex-row items-center space-x-1">
+                                <AccountDisplay />
+                                {/* <Link
+                                    to="/accounts/menu/receive"
+                                    draggable={false}
+                                    onClick={(e) => {
+                                        e.preventDefault()
+            
+                                        history.push("/accounts/menu/receive")
+                                    }}
+                                    className="p-2 transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300"
+                                >
+                                    <QRIcon />
+                                </Link> */}
+                            </div>
+                        </div>
+                        <div className="flex flex-row items-center -mr-1 space-x-2">
+                            {/* <GasPricesInfo /> */}
+                            <Link
+                                to="/settings"
+                                draggable={false}
+                                onClick={(e) => {
+                                    e.preventDefault()
+            
+                                    history.push("/settings")
+                                }}
+                                className="p-2 transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300"
+                            >
+                                {/* <GearIcon /> */}
+                                <VectorIcon />
+                            </Link>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 }

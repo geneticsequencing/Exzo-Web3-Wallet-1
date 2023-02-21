@@ -83,7 +83,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
                         {label ? (
                             <label
                                 htmlFor="accountName"
-                                className={Classes.inputLabel}
+                                className={classNames(Classes.inputLabel, "text-white")}
                             >
                                 {label}
                             </label>

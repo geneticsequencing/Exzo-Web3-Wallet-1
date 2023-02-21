@@ -4,7 +4,7 @@ The following NPM package may be included in this product:
 
 This package contains the following license and notice below:
 
-# [Block wallet](https://blockwallet.io/) ethereum provider
+# [Exzo wallet](https://blockwallet.io/) ethereum provider
 
 [![CI](../../workflows/Tests/badge.svg)](../../actions?query=Test)
 

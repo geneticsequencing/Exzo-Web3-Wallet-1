@@ -1,9 +1,10 @@
-import logo from "../assets/images/logo.svg"
+import logo from "../assets/exzo-images/images/logo.png"
+import { classnames } from "../styles"
 
-const LogoHeader = () => (
-    <div className="flex flex-row items-center space-x-1 text-black">
+const LogoHeader = (props: any) => (
+    <div className={classnames("flex flex-row items-center space-x-1 text-white")} >
         <img src={logo} alt="logo" className="w-6 h-6 rounded-md" />
-        <span className="font-bold text-2xl">BlockWallet</span>
+        <span className="font-bold text-2xl">ExzoWallet</span>
     </div>
 )
 

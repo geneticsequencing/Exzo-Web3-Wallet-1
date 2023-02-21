@@ -30,7 +30,7 @@ export const AddressDisplay: FunctionComponent<{
         <>
             {!isNativeToken ? (
                 <div
-                    className="flex flex-row items-center w-full px-6 py-3"
+                    className="flex flex-row items-center w-full py-4 pr-6 pl-4"
                     style={{ maxWidth: "100vw" }}
                     title={formatHash(
                         receivingAddress,
@@ -41,7 +41,7 @@ export const AddressDisplay: FunctionComponent<{
                     }
                 >
                     <CheckmarkCircle classes="w-4 h-4" />
-                    <span
+                    {/* <span
                         className={
                             displayAddressSpan
                                 ? "font-bold text-green-500 ml-1 truncate"
@@ -53,10 +53,10 @@ export const AddressDisplay: FunctionComponent<{
                         !(accountNameToDisplay !== addressToDisplay)
                             ? fullAddressToDisplay
                             : accountNameToDisplay}
-                    </span>
+                    </span> */}
 
                     {displayAddressSpan && (
-                        <span className="text-gray truncate ml-1">
+                        <span className="text-gray truncate ml-1 text-white text-base">
                             {addressToDisplay}
                         </span>
                     )}

@@ -29,7 +29,7 @@ const defaultOptions: useLocalStorageStateOptions<any> = {
  * Volatile keys are erased once you change the `history.location`.
  *
  *
- * @param key the key you want to use to store the info in the window.localStorage. This value can be modified depending on the blockWalletState option value.
+ * @param key the key you want to use to store the info in the window.localStorage. This value can be modified depending on the exzoWalletState option value.
  * @param stateOptions
  * @returns [state,setState]
  */

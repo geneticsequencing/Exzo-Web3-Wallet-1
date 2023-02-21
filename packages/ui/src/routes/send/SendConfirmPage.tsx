@@ -67,6 +67,8 @@ import { rejectTransaction } from "../../context/commActions"
 import { getValueByKey } from "../../util/objectUtils"
 import { AddressDisplay } from "../../components/addressBook/AddressDisplay"
 import { useAccountNameByAddress } from "../../context/hooks/useAccountNameByAddress"
+import ContactIcon from "../../components/icons/ContactIcon"
+import { Link } from "react-router-dom"
 
 // Schema
 const GetAmountYupSchema = (
@@ -684,21 +686,21 @@ const SendConfirmPage = () => {
                     networkIndicator
                 />
             }
-            footer={
-                <PopupFooter>
-                    <ButtonWithLoading
-                        type="submit"
-                        label="Confirm"
-                        isLoading={isGasLoading || isLoading}
-                        disabled={
-                            errors.amount !== undefined ||
-                            isLoading ||
-                            isGasLoading
-                        }
-                        onClick={onSubmit}
-                    />
-                </PopupFooter>
-            }
+            // footer={
+            //     <PopupFooter>
+            //         <ButtonWithLoading
+            //             type="submit"
+            //             label="Confirm"
+            //             isLoading={isGasLoading || isLoading}
+            //             disabled={
+            //                 errors.amount !== undefined ||
+            //                 isLoading ||
+            //                 isGasLoading
+            //             }
+            //             onClick={onSubmit}
+            //         />
+            //     </PopupFooter>
+            // }
         >
             <WaitingDialog
                 open={isOpen}
@@ -745,52 +747,33 @@ const SendConfirmPage = () => {
             <div className="w-full h-full">
                 <div
                     className="flex flex-col w-full h-full"
-                    style={{ maxHeight: "452px" }}
+                    style={{ maxHeight: "456px" }}
                 >
-                    <AddressDisplay
-                        receivingAddress={history.location.state.address}
-                        selectedAccountName={selectedAccountName}
-                    />
-
                     <div
-                        className="flex flex-col px-6"
+                        className="flex flex-col px-6 pt-6"
                         style={{ maxWidth: "100vw" }}
                     >
-                        {/* Asset */}
-                        <div
-                            className={classnames(
-                                !errors.asset?.message && "mb-3"
-                            )}
-                        >
-                            <p className="ml-1 mb-2 text-sm text-gray-600">
-                                Asset
-                            </p>
-                            <AssetSelection
-                                register={register}
-                                selectedAssetList={AssetListType.DEFAULT}
-                                selectedAsset={selectedToken}
-                                onAssetChange={handleChangeAsset}
-                                error={errors.asset?.message}
-                                topMargin={100}
-                                bottomMargin={45}
-                            />
-                            {errors.asset?.message && (
-                                <div className="pl-1 my-2">
-                                    <ErrorMessage>
-                                        {errors.asset?.message}
-                                    </ErrorMessage>
-                                </div>
-                            )}
+                        <div className="text-white text-2xl mb-8">Send Money</div>
+                        <div className="flex w-full  justify-between">
+                            <div>
+                                <AddressDisplay
+                                    receivingAddress={history.location.state.address}
+                                    selectedAccountName={selectedAccountName}
+                                />
+                                <hr />
+                            </div>
+                            <div className="flex justify-end w-full mr-2.5 hover:opacity-80 items-center cursor-pointer" onClick={() => {history.push({pathname: "/send"})}}>
+                                <ContactIcon />
+                            </div>
                         </div>
-
                         {/* Amount */}
                         <div
                             className={classnames(
                                 "flex flex-col",
-                                !errors.amount && "mb-3"
+                                !errors.amount && "mb-14"
                             )}
                         >
-                            <div className="flex flex-row">
+                            {/* <div className="flex flex-row">
                                 <div className="flex items-start w-1/3">
                                     <label
                                         htmlFor="amount"
@@ -799,16 +782,16 @@ const SendConfirmPage = () => {
                                         Amount
                                     </label>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <div
+                            {/* <div
                                 className={classnames(
                                     Classes.blueSection,
                                     inputFocus && "bg-primary-200",
                                     errors.amount && "border-red-400"
                                 )}
-                            >
-                                <div className="flex flex-col items-start">
+                            > */}
+                                <div className="flex flex-col items-start p-4 text-white">
                                     <input
                                         id="amount"
                                         type="text"
@@ -843,15 +826,16 @@ const SendConfirmPage = () => {
                                             handleChangeAmount(e.target.value)
                                         }
                                     />
-                                    <span className="text-xs text-gray-600">
+                                    {/* <span className="text-xs text-gray-600">
                                         {formatCurrency(nativeCurrencyAmt, {
                                             currency: blankState.nativeCurrency,
                                             locale_info: blankState.localeInfo,
                                             showSymbol: true,
                                         })}
-                                    </span>
+                                    </span> */}
                                 </div>
-                                <div className="w-1/5">
+                                <hr />
+                                {/* <div className="w-1/5">
                                     <span
                                         className={classnames(
                                             "float-right rounded-md cursor-pointer border p-1",
@@ -872,8 +856,8 @@ const SendConfirmPage = () => {
                                     >
                                         max
                                     </span>
-                                </div>
-                            </div>
+                                </div> */}
+                            {/* </div> */}
                             <div
                                 className={`${
                                     errors.amount?.message ? "pl-1 my-2" : null
@@ -885,8 +869,53 @@ const SendConfirmPage = () => {
                             </div>
                         </div>
 
+                        {/* Asset */}
+                        <div
+                            className={classnames(
+                                !errors.asset?.message && "mb-6"
+                            )}
+                        >
+                            <p className="ml-1 mb-2 text-sm text-white">
+                                Asset
+                            </p>
+                            <AssetSelection
+                                register={register}
+                                selectedAssetList={AssetListType.DEFAULT}
+                                selectedAsset={selectedToken}
+                                onAssetChange={handleChangeAsset}
+                                error={errors.asset?.message}
+                                topMargin={100}
+                                bottomMargin={45}
+                            />
+                            <hr />
+                            {errors.asset?.message && (
+                                <div className="pl-1 my-2">
+                                    <ErrorMessage>
+                                        {errors.asset?.message}
+                                    </ErrorMessage>
+                                </div>
+                            )}
+                        </div>
+
+                        <ButtonWithLoading
+                            type="submit"
+                            label="Confirm"
+                            isLoading={isGasLoading || isLoading}
+                            disabled={
+                                errors.amount !== undefined ||
+                                isLoading ||
+                                isGasLoading
+                            }
+                            onClick={onSubmit}
+                        />
+
+                        {/* Gas Fees */}
+                        <div className="text-white text-sm mt-2.5">
+                            <span className="font-bold">Expected Gas Fees:</span>
+                            <span className="font-thin"> 0.00075 ETH</span>
+                        </div>
                         {/* Speed */}
-                        <label className="ml-1 mb-2 text-sm text-gray-600">
+                        {/* <label className="ml-1 mb-2 text-sm text-gray-600">
                             Gas Price
                         </label>
 
@@ -921,12 +950,12 @@ const SendConfirmPage = () => {
                                 showEstimationError={gasEstimationFailed}
                                 displayOnlyMaxValue
                             />
-                        )}
+                        )} */}
                         <div className={`${error ? "pl-1 my-2" : null}`}>
                             <ErrorMessage>{error}</ErrorMessage>
                         </div>
 
-                        <div className="mt-3">
+                        {/* <div className="mt-3">
                             <AdvancedSettings
                                 address={address}
                                 advancedSettings={transactionAdvancedData}
@@ -943,7 +972,9 @@ const SendConfirmPage = () => {
                                     })
                                 }}
                             />
-                        </div>
+                        </div> */}
+
+
                     </div>
                 </div>
             </div>

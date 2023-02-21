@@ -36,8 +36,8 @@ export const ButtonWithLoading: FunctionComponent<{
             type={type}
             disabled={disabled || isLoading}
             className={classnames(
-                buttonClass || Classes.darkButton,
-                "w-full",
+                buttonClass || Classes.confrimButton,
+                "",
                 (isLoading || disabled) && "opacity-50 pointer-events-none"
             )}
             onClick={onClick}

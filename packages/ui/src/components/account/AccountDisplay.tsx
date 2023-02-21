@@ -88,12 +88,12 @@ const AccountDisplay: FunctionComponent<AccountDisplayProps> = ({
         onClickAccount && !selected && !actionButtons && !isHoveringMenu
 
     const accountName = formatName(account.name, showAddress ? 25 : 18)
-
+"hover:bg-opacity-20 bg-body-assets-100 active:bg-opacity-20"
     return (
         <>
             <div
                 className={classnames(
-                    "flex flex-row items-center justify-between w-full rounded-md",
+                    "flex flex-row items-center justify-between w-full rounded-md hover:bg-opacity-20 bg-body-assets-100 active:bg-opacity-20",
                     hoverStyle && "hover:bg-primary-100 cursor-pointer",
                     confirmationDialog.isOpen && "!cursor-default"
                 )}
@@ -107,7 +107,7 @@ const AccountDisplay: FunctionComponent<AccountDisplayProps> = ({
                     data-testid="account-icon"
                 >
                     <AccountIcon
-                        className="w-10 h-10"
+                        className=""
                         fill={getAccountColor(checksumAddress)}
                     />
                     <div className="flex flex-col">
@@ -121,7 +121,7 @@ const AccountDisplay: FunctionComponent<AccountDisplayProps> = ({
                             <div className="flex flex-row space-x-1">
                                 <label
                                     className={classnames(
-                                        "font-bold",
+                                        "font-bold text-white",
                                         hoverStyle && "cursor-pointer"
                                     )}
                                     title={account.name}
@@ -131,7 +131,7 @@ const AccountDisplay: FunctionComponent<AccountDisplayProps> = ({
                                 </label>
                                 {!showAddress && (
                                     <span
-                                        className="font-bold"
+                                        className="font-bold text-white opacity-80"
                                         title={checksumAddress}
                                     >
                                         {formatHashLastChars(checksumAddress)}

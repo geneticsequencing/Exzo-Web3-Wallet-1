@@ -679,7 +679,7 @@ export const populateTokenData = async (
 }
 
 /**
- * Creates a new BlockWallet
+ * Creates a new ExzoWallet
  *
  * @param password user password
  * @returns vault seed phrase

@@ -10,10 +10,10 @@ const IntroductionPage = () => (
         <div className="flex flex-col items-center relative mt-20 pt-10 mb-14 z-10">
             <LogoHeader />
             <div className="flex flex-col items-center my-12 space-y-6">
-                <span className="font-title font-semibold text-5xl">
-                    BlockWallet
+                <span className="font-title font-semibold text-5xl text-body-500">
+                    ExzoWallet
                 </span>
-                <div className="flex flex-col md:flex-row items-center space-x-1 w-52 md:w-full mx-auto text-gray-600 text-sm text-center">
+                <div className="flex flex-col md:flex-row items-center space-x-1 w-52 md:w-full mx-auto text-white text-sm text-center">
                     <span>Have a transfer to make?</span>
                     <span>Reclaim your privacy with us.</span>
                 </div>

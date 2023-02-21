@@ -19,7 +19,7 @@ const ResetPage = () => {
 
     return (
         <PageLayout header maxWidth="max-w-lg">
-            <span className="my-6 text-lg font-bold font-title">
+            <span className="my-6 text-lg font-bold font-title text-white">
                 Reset your Wallet
             </span>
             <Divider />

@@ -5,8 +5,8 @@ import ExclamationCircleIconFull from "../icons/ExclamationCircleIconFull"
 import CloseIcon from "../icons/CloseIcon"
 
 const infoBgStyle = {
-    backgroundColor: "#e2f6ff",
-    color: "#00529B",
+    backgroundColor: "#00FFA314",
+    color: "#00FFA3",
 }
 
 /**
@@ -41,7 +41,7 @@ const InfoTip: FunctionComponent<{
             </div>
             <p
                 className={classnames(
-                    "font-bold text-blue-400 break-words ml-3",
+                    "font-bold text-body-balances-200 break-words ml-3",
                     fontSize ?? "text-lg"
                 )}
             >

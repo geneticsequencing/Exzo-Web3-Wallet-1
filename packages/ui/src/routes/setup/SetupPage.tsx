@@ -17,7 +17,7 @@ const SetupOption: FunctionComponent<{
     linkTo: string
     linkLabel: string
 }> = ({ title, description, icon, linkTo, linkLabel }) => (
-    <div className="relative flex flex-col items-start flex-1 p-6 bg-primary-100">
+    <div className="relative flex flex-col items-start flex-1 p-6 bg-body-balances-100">
         <div className="absolute top-0 right-0 w-4 h-4 bg-white" />
         <div className="absolute top-0 right-0 w-4 h-4 mt-4 mr-4 bg-white" />
         <img
@@ -25,8 +25,8 @@ const SetupOption: FunctionComponent<{
             alt="icon"
             className="mb-4 text-4xl text-gray-500 w-14 h-14"
         />
-        <span className="text-sm font-bold font-title">{title}</span>
-        <span className="h-16 mt-4 text-xs text-gray-500">{description}</span>
+        <span className="text-sm font-bold font-title text-body-balances-200">{title}</span>
+        <span className="h-16 mt-4 text-xs text-gray-400">{description}</span>
         <Link
             to={linkTo}
             className={classnames(Classes.button, "w-full")}
@@ -43,8 +43,8 @@ const SetupPage = () => {
 
     return (
         <PageLayout className="relative" header>
-            <span className="my-6 text-lg font-bold font-title">
-                New to BlockWallet?
+            <span className="my-6 text-lg font-bold font-title text-white">
+                New to ExzoWallet?
             </span>
             <Divider />
             <div className="flex flex-col w-full p-6 space-y-4 md:flex-row md:space-y-0 md:space-x-4">

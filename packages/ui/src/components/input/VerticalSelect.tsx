@@ -51,8 +51,8 @@ const VerticalSelect: FunctionComponent<{
                     disabled:pointer-events-none
                     ${
                         isActive(option)
-                            ? "bg-primary-300 text-white font-bold"
-                            : "bg-primary-100 hover:bg-primary-200"
+                            ? "bg-body-assets-100 text-white font-bold"
+                            : "bg-body-assets-100 hover:bg-opacity-20"
                     }
                     ${
                         isDisabled(option, i)

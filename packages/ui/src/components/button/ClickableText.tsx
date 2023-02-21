@@ -14,7 +14,7 @@ const ClickableText: FunctionComponent<ClickableTextProps> = ({
     return (
         <button
             type="button"
-            className={classnames(Classes.clickableText, className)}
+            className={classnames(Classes.clickableText, className, "text-body-balances-200")}
             onClick={onClick}
         >
             {children}

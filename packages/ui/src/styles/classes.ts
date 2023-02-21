@@ -3,7 +3,7 @@ import _classnames from "classnames"
 export const classnames = _classnames
 
 const primaryButton =
-    "text-white bg-primary-300 hover:bg-blue-600 border-primary-300 hover:border-blue-600"
+"text-body-balances-200 bg-body-balances-100 hover:bg-body-balances-300 border-body-balances-300"
 
 export class Classes {
     static centered = classnames("flex flex-row items-center justify-center")
@@ -74,8 +74,12 @@ export class Classes {
         Classes.baseButton,
         "bg-gray-900 text-white hover:bg-gray-800 border-gray-900 hover:border-gray-800"
     )
-    static disabledDarkButton = classnames(
+    static confrimButton = classnames(
         Classes.centered,
+        Classes.baseButton,
+        "bg-body-balances-100 text-white hover:bg-body-balances-300 border-body-balances-300"
+    )
+    static disabledDarkButton = classnames(
         Classes.baseButton,
         "bg-gray-700 border-gray-700 text-white pointer-events-none"
     )
@@ -83,6 +87,11 @@ export class Classes {
         Classes.centered,
         Classes.baseButton,
         "text-gray-900 border-gray-900 hover:text-white hover:bg-gray-900"
+    )
+    static backButton = classnames(
+        Classes.centered,
+        Classes.baseButton,
+        "text-white border-gray-900 hover:text-white hover:bg-gray-900"
     )
     static inputLabel = classnames("text-xs")
     static inputBordered = classnames(
@@ -104,14 +113,14 @@ export class Classes {
     static placeholder = classnames("overflow-hidden relative placeholder")
 
     static blueSection = classnames(
-        "p-4 border-opacity-0 border-transparent flex justify-between items-center flex-row w-full rounded-md bg-primary-100 border cursor-pointer hover:bg-primary-200"
+        "p-4 border-opacity-0 border-transparent flex justify-between items-center flex-row w-full rounded-md border cursor-pointer"
     )
 
     static blueSelectionDisabled = classnames(
         "cursor-not-allowed hover:bg-primary-100"
     )
 
-    static blueSectionActive = classnames("bg-primary-200")
+    static blueSectionActive = classnames("bg-gray-900")
     static blueSectionInput = classnames(
         "bg-transparent p-0 mb-1 border-none font-bold"
     )
@@ -125,7 +134,7 @@ export class Classes {
     )
 
     static clickableText = classnames(
-        "rounded border-none bg-transparent text-primary-300 hover:underline"
+        "rounded border-none bg-transparent text-body-balances-200 hover:underline"
     )
     static selectBaseStyle = classnames(
         "relative flex flex-row justify-between items-center cursor-pointer select-none"

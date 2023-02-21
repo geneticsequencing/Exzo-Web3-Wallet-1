@@ -1,4 +1,4 @@
-# [Block wallet](https://blockwallet.io/) ethereum provider
+# [Exzo wallet](https://blockwallet.io/) ethereum provider
 
 [![CI](../../workflows/Tests/badge.svg)](../../actions?query=Test)
 

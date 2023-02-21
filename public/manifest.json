@@ -1,5 +1,5 @@
 {
-    "author": "BlockWallet",
+    "author": "ExzoWallet",
     "background": {
         "scripts": [
             "hot-reload.js",
@@ -33,7 +33,7 @@
     ],
     "browser_action": {
         "default_popup": "popup.html",
-        "default_title": "BlockWallet"
+        "default_title": "ExzoWallet"
     },
     "description": "The first crypto wallet protecting you on Web3 without any compromises.",
     "homepage_url": "https://www.blockwallet.io/",
@@ -44,7 +44,7 @@
     },
     "content_security_policy": "script-src 'self'; object-src 'self'",
     "manifest_version": 2,
-    "name": "BlockWallet",
+    "name": "ExzoWallet",
     "permissions": [
         "activeTab",
         "storage",
@@ -54,7 +54,7 @@
         "https://*.bscscan.com/*",
         "https://*.polygonscan.com/*"
     ],
-    "short_name": "BlockWallet",
+    "short_name": "ExzoWallet",
     "version": "0.5.6",
     "web_accessible_resources": [
         "blankProvider.js"

@@ -15,10 +15,10 @@ const PendingSetupPage = () => {
                             alt="checkmark"
                             className="w-24 h-24"
                         />
-                        <span className="text-gray-900 font-bold text-2xl">
+                        <span className="text-white font-bold text-2xl">
                             Oops...
                         </span>
-                        <span className="text-gray-700 text-center text-sm w-64">
+                        <span className="text-white text-center text-sm w-64">
                             It seems you have not completed your wallet setup
                             yet.
                         </span>

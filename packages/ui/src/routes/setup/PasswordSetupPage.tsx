@@ -112,7 +112,7 @@ const PasswordSetupPage = () => {
     }, [passwordValues.password, trigger])
     return (
         <PageLayout header maxWidth="max-w-md">
-            <span className="my-6 text-lg font-bold font-title">
+            <span className="my-6 text-lg font-bold font-title text-white">
                 Create a Password
             </span>
             <Divider />
@@ -147,13 +147,13 @@ const PasswordSetupPage = () => {
                                 id="acceptTOU"
                                 {...register("acceptTOU")}
                             />
-                            <label htmlFor="acceptTOU" className="text-xs">
+                            <label htmlFor="acceptTOU" className="text-xs text-white">
                                 I have read and agree to the{" "}
                                 <a
                                     href="https://blockwallet.io/terms-of-use-of-block-wallet.html"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-blue-500"
+                                    className="text-body-balances-200"
                                 >
                                     Terms of Use
                                 </a>

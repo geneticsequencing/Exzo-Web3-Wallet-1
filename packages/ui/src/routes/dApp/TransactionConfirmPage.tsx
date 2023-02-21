@@ -195,7 +195,7 @@ const TransactionConfirm: React.FC<{
         transaction.methodSignature?.name ??
         transaction.transactionCategory?.toString()
     const account = accounts[getAddress(params.from!)]
-    const accountName = account ? account.name : "BlockWallet"
+    const accountName = account ? account.name : "ExzoWallet"
 
     const { status, isOpen, dispatch, texts, titles, closeDialog, gifs } =
         useTransactionWaitingDialog(

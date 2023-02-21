@@ -72,15 +72,15 @@ const getLabels = (
 > => {
     if (operation === ApproveOperation.BRIDGE) {
         return {
-            mainSectionTitle: `Approve BlockWallet to bridge your ${assetName}`,
-            mainSectionText: `Allow BlockWallet Bridge to withdraw your ${assetName} and automate transactions for you.`,
-            editAllowanceText: `Allow the BlockWallet Bridge to the following amount of ${assetName}:`,
+            mainSectionTitle: `Approve ExzoWallet to bridge your ${assetName}`,
+            mainSectionText: `Allow ExzoWallet Bridge to withdraw your ${assetName} and automate transactions for you.`,
+            editAllowanceText: `Allow the ExzoWallet Bridge to the following amount of ${assetName}:`,
         }
     } else {
         return {
-            mainSectionTitle: `Approve BlockWallet to swap your ${assetName}`,
-            mainSectionText: `Allow BlockWallet Swaps to withdraw your ${assetName} and automate transactions for you.`,
-            editAllowanceText: `Allow BlockWallet Swaps to swap up to the following amount of ${assetName}:`,
+            mainSectionTitle: `Approve ExzoWallet to swap your ${assetName}`,
+            mainSectionText: `Allow ExzoWallet Swaps to withdraw your ${assetName} and automate transactions for you.`,
+            editAllowanceText: `Allow ExzoWallet Swaps to swap up to the following amount of ${assetName}:`,
         }
     }
 }

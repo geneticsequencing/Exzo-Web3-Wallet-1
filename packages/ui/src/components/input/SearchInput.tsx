@@ -99,7 +99,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
             <>
                 {/* LABEL */}
                 {label ? (
-                    <label htmlFor="accountName" className={Classes.inputLabel}>
+                    <label htmlFor="accountName" className={classnames(Classes.inputLabel, "text-white")}>
                         {label}
                     </label>
                 ) : null}
@@ -131,7 +131,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
                         )}
                         className={classnames(
                             Classes.inputBordered,
-                            "w-full relative z-0 outline-none	transition-all delay-100",
+                            "w-full relative z-0 outline-none transition-all delay-100 bg-gray-900 text-white",
                             isFocus ? "pl-2" : "pl-9",
                             inputClassName,
                             isValid

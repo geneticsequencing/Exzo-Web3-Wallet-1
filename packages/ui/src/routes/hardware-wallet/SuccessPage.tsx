@@ -54,7 +54,7 @@ const HardwareWalletSuccessPage = () => {
                                     Your {vendorName} accounts were imported
                                     successfully.
                                     <br />
-                                    You can now access them in BlockWallet.
+                                    You can now access them in ExzoWallet.
                                     <br />
                                     Open the wallet via the extensions section
                                     of your browser.

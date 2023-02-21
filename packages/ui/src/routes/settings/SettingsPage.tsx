@@ -86,44 +86,44 @@ const SettingsPage = () => {
                     onBack={() => history.push("/")}
                 />
             }
-            footer={
-                <PopupFooter>
-                    <GenericTooltip
-                        top
-                        divFull
-                        disabled={!isImportingDeposits}
-                        content={
-                            <p className="w-full text-center">
-                                Please wait until deposits are done loading
-                                before locking the wallet. This can take up to
-                                15 minutes
-                            </p>
-                        }
-                    >
-                        <button
-                            type="button"
-                            onClick={logout}
-                            className={classnames(
-                                !isImportingDeposits
-                                    ? Classes.logoutButton
-                                    : Classes.disabledLogoutButton,
-                                "w-full"
-                            )}
-                            disabled={isImportingDeposits}
-                        >
-                            <img
-                                alt="Logout"
-                                src={logoutIcon}
-                                className={classnames(
-                                    Classes.buttonIcon,
-                                    isImportingDeposits && "opacity-30"
-                                )}
-                            />
-                            Logout
-                        </button>
-                    </GenericTooltip>
-                </PopupFooter>
-            }
+            // footer={
+            //     <PopupFooter>
+            //         <GenericTooltip
+            //             top
+            //             divFull
+            //             disabled={!isImportingDeposits}
+            //             content={
+            //                 <p className="w-full text-center">
+            //                     Please wait until deposits are done loading
+            //                     before locking the wallet. This can take up to
+            //                     15 minutes
+            //                 </p>
+            //             }
+            //         >
+            //             <button
+            //                 type="button"
+            //                 onClick={logout}
+            //                 className={classnames(
+            //                     !isImportingDeposits
+            //                         ? Classes.logoutButton
+            //                         : Classes.disabledLogoutButton,
+            //                     "w-full"
+            //                 )}
+            //                 disabled={isImportingDeposits}
+            //             >
+            //                 <img
+            //                     alt="Logout"
+            //                     src={logoutIcon}
+            //                     className={classnames(
+            //                         Classes.buttonIcon,
+            //                         isImportingDeposits && "opacity-30"
+            //                     )}
+            //                 />
+            //                 {/* Logout */}
+            //             </button>
+            //         </GenericTooltip>
+            //     </PopupFooter>
+            // }
         >
             <div className="flex flex-col space-y-6 p-6">
                 <div className="flex flex-col space-y-1">
@@ -149,12 +149,12 @@ const SettingsPage = () => {
                             containerClassName="flex flex-col space-y-4"
                             display={(option, i) => {
                                 const className =
-                                    "flex flex-row space-x-3 items-center text-gray-900"
+                                    "flex flex-row space-x-3 items-center text-white"
                                 const children = (
                                     <>
                                         <div
                                             className={classnames(
-                                                option.classes ?? ""
+                                                option.classes ?? "", "bg-white rounded-full p-1.5"
                                             )}
                                         >
                                             <img

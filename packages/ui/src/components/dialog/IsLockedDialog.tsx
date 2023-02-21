@@ -15,7 +15,7 @@ const IsLockedDialog = () => {
                     </span>
                 </div>
                 <span className="text-base p-4 text-center inline-flex">
-                    BlockWallet is locked. Please login again in the extension
+                    ExzoWallet is locked. Please login again in the extension
                     to continue.
                 </span>
             </div>

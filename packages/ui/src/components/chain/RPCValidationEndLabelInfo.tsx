@@ -127,7 +127,7 @@ const RPCValidationEndLabelInfo = ({
                             "!-translate-x-full !border !border-gray-200 !w-56 !break-word !whitespace-normal",
                             toolTipClassName
                         )}
-                        content="This node endpoint is not recognized by BlockWallet. Please make sure that this configuration will not compromise your funds."
+                        content="This node endpoint is not recognized by ExzoWallet. Please make sure that this configuration will not compromise your funds."
                     />
                 </>
             )
@@ -146,7 +146,7 @@ const RPCValidationEndLabelInfo = ({
                             "!-translate-x-full !border !border-gray-200 !w-56 !break-word !whitespace-normal",
                             toolTipClassName
                         )}
-                        content="This network is not recognized by BlockWallet. Please make sure that this configuration will not compromise your funds."
+                        content="This network is not recognized by ExzoWallet. Please make sure that this configuration will not compromise your funds."
                     />
                 </>
             )
@@ -193,7 +193,7 @@ const RPCValidationEndLabelInfo = ({
                             "!-translate-x-full !border !border-gray-200 !w-56 !break-word !whitespace-normal",
                             toolTipClassName
                         )}
-                        content="This explorer is not recognized by BlockWallet."
+                        content="This explorer is not recognized by ExzoWallet."
                     />
                 </>
             )
@@ -221,7 +221,7 @@ const RPCValidationEndLabelInfo = ({
                             "!-translate-x-full !border !border-gray-200 !w-56 !break-word !whitespace-normal",
                             toolTipClassName
                         )}
-                        content="This network is not recognized by BlockWallet. Please make sure that this configuration will not compromise your funds."
+                        content="This network is not recognized by ExzoWallet. Please make sure that this configuration will not compromise your funds."
                     />
                 </>
             )

@@ -53,8 +53,8 @@ const transactionMessages = {
     [TransactionCategories.TOKEN_METHOD_TRANSFER]: "Token Transfer",
     [TransactionCategories.TOKEN_METHOD_INCOMING_TRANSFER]: "Received Token",
     [TransactionCategories.TOKEN_METHOD_TRANSFER_FROM]: "Token Transfer From",
-    [TransactionCategories.EXCHANGE]: "BlockWallet Swap",
-    [TransactionCategories.BRIDGE]: "BlockWallet Bridge",
+    [TransactionCategories.EXCHANGE]: "ExzoWallet Swap",
+    [TransactionCategories.BRIDGE]: "ExzoWallet Bridge",
     [TransactionCategories.INCOMING_BRIDGE]: "Incoming Bridge",
     [TransactionCategories.INCOMING_BRIDGE_REFUND]: "Bridge Refund",
     [TransactionCategories.INCOMING_BRIDGE_PLACEHOLDER]: "Incoming Bridge",
@@ -133,7 +133,7 @@ const getTransactionItemStyles = (
 const transactionIcons = {
     [TransactionCategories.BLANK_DEPOSIT]: <img src={blankLogo} alt="blank" />,
     [TransactionCategories.BLANK_WITHDRAWAL]: (
-        <img src={blankLogo} alt="BlockWallet" />
+        <img src={blankLogo} alt="ExzoWallet" />
     ),
     [TransactionCategories.INCOMING]: <img src={eth} alt="ETH" />,
     [TransactionCategories.SENT_ETHER]: <img src={eth} alt="ETH" />,

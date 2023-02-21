@@ -56,7 +56,7 @@ const Item: FC<InfoItemProps & { children: React.ReactNode }> = ({
             <div className="flex-none mr-3">
                 <Bullet />
             </div>
-            <span className="flex-1 text-sm text-slate-600 leading-6 align-middle">
+            <span className="flex-1 text-sm text-white leading-6 align-middle">
                 {children}
             </span>
         </li>

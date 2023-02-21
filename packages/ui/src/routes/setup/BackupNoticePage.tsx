@@ -20,24 +20,24 @@ import IdleComponent from "../../components/IdleComponent"
 
 const SideTips = () => (
     <div className="flex flex-col justify-between h-full w-full space-y-6 text-sm text-left md:w-64 md:ml-6">
-        <div className="flex flex-col w-full p-6 space-y-4 rounded-md bg-primary-200">
+        <div className="flex flex-col w-full p-6 space-y-4 rounded-md bg-body-balances-100">
             <img src={drawerIcon} className="w-5 h-5" alt="" />
-            <span>
+            <span className="text-white">
                 Store this phrase in a password manager like{" "}
-                <b className="text-gray-900">1Password</b>.
+                <b className="text-body-balances-200">1Password</b>.
             </span>
         </div>
-        <div className="flex flex-col w-full p-6 space-y-4 rounded-md bg-primary-200">
+        <div className="flex flex-col w-full p-6 space-y-4 rounded-md bg-body-balances-100">
             <img src={penIcon} className="w-5 h-5" alt="" />
-            <span>
+            <span className="text-white">
                 Write this phrase on pieces of paper and store each in{" "}
-                <b className="text-gray-900">2 - 3</b> different locations.
+                <b className="text-body-balances-200">2 - 3</b> different locations.
             </span>
         </div>
-        <div className="flex flex-col w-full p-6 space-y-4 rounded-md bg-primary-200">
+        <div className="flex flex-col w-full p-6 space-y-4 rounded-md bg-body-balances-100">
             <img src={backupIcon} className="w-5 h-5" alt="" />
-            <span>
-                <b className="text-gray-900">Download</b> this Secret Backup
+            <span className="text-white">
+                <b className="text-body-balances-200">Download</b> this Secret Backup
                 Phrase and keep it stored safely on an external encrypted hard
                 drive or storage medium.
             </span>
@@ -72,23 +72,23 @@ const BackupNoticePage = () => {
                     </div>
                 }
             >
-                <span className="my-6 text-lg font-bold font-title">
+                <span className="my-6 text-lg font-bold font-title text-white">
                     Seed Phrase
                 </span>
                 <Divider />
-                <div className="flex flex-col p-8 space-y-8 text-sm text-gray-600">
+                <div className="flex flex-col p-8 space-y-8 text-sm text-white">
                     <span>
                         Your seed phrase is the key to your wallet. It makes it
                         possible to restore your wallet after losing access.
                         Import your seed phrase to gain access to the funds held
-                        on your BlockWallet. Backup your seed phrase and store
+                        on your ExzoWallet. Backup your seed phrase and store
                         it in a safe place.
                     </span>
                     <div className="md:hidden">
                         <SideTips />
                     </div>
                     <span>
-                        <b className="text-gray-900">Warning:</b> Never disclose
+                        <b className="text-black">Warning:</b> Never disclose
                         your seed phrase. Anyone asking for your seed phrase is
                         most likely trying to steal your funds.
                     </span>

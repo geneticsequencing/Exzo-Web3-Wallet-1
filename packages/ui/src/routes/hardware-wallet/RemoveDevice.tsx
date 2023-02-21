@@ -55,7 +55,7 @@ const HardwareWalletRemoveDevicePage = () => {
     return (
         <HardwareWalletSetupLayout
             title="Remove device"
-            subtitle="Select a Hardware Wallet you'd like to remove from BlockWallet. All the accounts imported from the selected device will be removed."
+            subtitle="Select a Hardware Wallet you'd like to remove from ExzoWallet. All the accounts imported from the selected device will be removed."
             buttons={
                 <ButtonWithLoading
                     label={"Remove device and accounts"}

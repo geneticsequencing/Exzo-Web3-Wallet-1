@@ -23,29 +23,31 @@ const WelcomeInfo: FC<WelcomeInfoProps> = ({ onDismiss }) => {
                 </PopupFooter>
             }
         >
-            <div className="w-full p-6 pb-0 bg-white bg-opacity-75">
+            <div className="w-full p-6 pb-0 bg-opacity-75">
                 <Info>
-                    <Info.Title>Welcome to BlockWallet!</Info.Title>
+                    <div className="text-white">
+                        <Info.Title>Welcome to ExzoWallet!</Info.Title>
+                    </div>
                     <div className="p-1 pt-6">
                         <Info.List>
                             {settings.defaultBrowserWallet ? (
                                 <Info.Item type="success">
-                                    BlockWallet is your default browser wallet
+                                    ExzoWallet is your default browser wallet
                                     to interact with DApps.
                                 </Info.Item>
                             ) : (
                                 <Info.Item type="warn">
-                                    Set BlockWallet as your default browser
+                                    Set ExzoWallet as your default browser
                                     wallet to interact with DApps.
                                 </Info.Item>
                             )}
 
                             <Info.Item type="warn">
-                                Select BlockWallet or, alternatively the
+                                Select ExzoWallet or, alternatively the
                                 injected option, to connect with DApps.
                             </Info.Item>
                             <Info.Item type="warn">
-                                If you don't see BlockWallet's logo when
+                                If you don't see ExzoWallet's logo when
                                 connecting, select another browser wallet's
                                 logo.
                             </Info.Item>
@@ -55,14 +57,14 @@ const WelcomeInfo: FC<WelcomeInfoProps> = ({ onDismiss }) => {
                                     target="_blank"
                                     rel="noreferrer"
                                     href={LINKS.TELEGRAM}
-                                    className="text-decoration-line: underline; text-blue-600 hover:text-blue-800"
+                                    className="text-decoration-line: underline; text-body-balances-200 hover:text-body-balances-300"
                                 >
                                     Telegram group
                                 </a>{" "}
                                 if you have any questions or feedback.
                             </Info.Item>
                             <Info.Item type="success" className="m-0 mt-16">
-                                We hope that you enjoy using the BlockWallet!
+                                We hope that you enjoy using the ExzoWallet!
                             </Info.Item>
                         </Info.List>
                     </div>

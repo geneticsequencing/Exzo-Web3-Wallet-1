@@ -43,15 +43,15 @@ const AboutPage = () => {
                     <div className="flex items-center">
                         <img
                             src={logo}
-                            alt="Blockwallet logo"
+                            alt="ExzoWallet logo"
                             className="w-5 h-5"
                         />
                         <span className="ml-2 text-lg font-bold">
-                            BlockWallet
+                            ExzoWallet
                         </span>
                     </div>
                     <p className="mt-4">
-                        BlockWallet is the most private, non-custodial browser
+                        ExzoWallet is the most private, non-custodial browser
                         extension wallet where users can store funds and
                         interact with their favorite blockchain applications
                         anonymously.

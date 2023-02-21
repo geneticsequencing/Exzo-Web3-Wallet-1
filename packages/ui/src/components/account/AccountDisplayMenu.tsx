@@ -125,8 +125,8 @@ export const getAccountMenuOptionMetadata = (
                 requiresConfirmation: true,
                 confirmationTitle: "Remove External Account",
                 confirmationMessage: isHardwareWallet(account.accountType)
-                    ? "Removing an external account deletes all connected data from BlockWallet. You can re-connect your hardware wallet account at any time. Are you sure you want to remove this hardware wallet account?"
-                    : "Removing an external account deletes all connected data from BlockWallet. You can re-add your external account at any time using your private key. Are you sure you want to remove this external account?",
+                    ? "Removing an external account deletes all connected data from ExzoWallet. You can re-connect your hardware wallet account at any time. Are you sure you want to remove this hardware wallet account?"
+                    : "Removing an external account deletes all connected data from ExzoWallet. You can re-add your external account at any time using your private key. Are you sure you want to remove this external account?",
             }
         }
     }

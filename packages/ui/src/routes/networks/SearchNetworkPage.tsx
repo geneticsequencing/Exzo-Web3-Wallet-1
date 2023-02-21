@@ -214,7 +214,7 @@ const SearchNetworkPage = () => {
                                     >
                                         <span>
                                             The network you are searching for is
-                                            unknown to BlockWallet. Try to
+                                            unknown to ExzoWallet. Try to
                                             adjusting your search term or
                                             filters, or{" "}
                                             <ClickableText
