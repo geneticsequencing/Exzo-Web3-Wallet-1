@@ -37,7 +37,7 @@ const PageLayout: FunctionComponent<{
             >
                 <div
                     className={classnames(
-                        "flex-1 flex flex-col items-center shadow-lg bg-body-100 border-body-400 border-2",
+                        "flex-1 flex flex-col items-center shadow-lg bg-body-100",
                         screen ? "" : "rounded-md",
                         maxWidth || "max-w-2xl",
                         className

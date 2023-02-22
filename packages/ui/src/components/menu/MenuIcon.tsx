@@ -25,7 +25,7 @@ const MenuIcon = (props: any) => {
     >
         {props.to === '/home' ?
             !isHover ? <HomeIcon /> : <HomeIconHover />:
-         props.to === "/dapp_browse" ?
+         props.to === "/collectibles" ?
             !isHover ? <BrowserIcon /> : <BrowserIconHover />:
          props.to === "/swap" ?
             !isHover ? <SwapIcon /> : <SwapIconHover />:

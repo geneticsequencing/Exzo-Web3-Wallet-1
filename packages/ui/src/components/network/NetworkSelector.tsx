@@ -23,6 +23,7 @@ interface NetworkSelectorProps {
     isLoading?: boolean
     loadingText?: string
     emptyText?: string
+    assetAmountDisplay?: React.ReactNode
 }
 
 export const NetworkSelector: FunctionComponent<NetworkSelectorProps> = ({
@@ -36,6 +37,7 @@ export const NetworkSelector: FunctionComponent<NetworkSelectorProps> = ({
     isLoading = false,
     loadingText = "",
     emptyText = "",
+    assetAmountDisplay
 }) => {
     const [searchResult, setSearchResult] = useState<IChain[]>([])
     const [search, setSearch] = useState<string | null>(null)
@@ -102,6 +104,7 @@ export const NetworkSelector: FunctionComponent<NetworkSelectorProps> = ({
                     isEmpty={!networkList.length}
                     isLoading={isLoading}
                     selectedNetwork={selectedNetwork}
+                    assetAmountDisplay={assetAmountDisplay}
                 />
             }
             error={error}
@@ -122,7 +125,7 @@ export const NetworkSelector: FunctionComponent<NetworkSelectorProps> = ({
             </div>
             {search && searchResult.length === 0 ? (
                 <div className="p-3">
-                    <p className="text-xs text-black text-center">
+                    <p className="text-xs text-white text-center">
                         No available networks match with the search.
                     </p>
                 </div>

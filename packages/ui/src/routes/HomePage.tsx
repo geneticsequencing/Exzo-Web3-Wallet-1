@@ -162,7 +162,7 @@ const HomePage = () => {
                 <PopupHeader title="home" backButton={false}/>
             </div>
             {state.isNetworkChanging && <TransparentOverlay />}
-            <div className="flex flex-col items-start flex-1 w-full max-h-screen p-6 pt-24 space-y-2 overflow-auto hide-scroll">
+            <div className="flex flex-col items-start flex-1 w-full max-h-screen p-6 pt-24 space-y-2 overflow-auto hide-scroll" style={{ maxHeight: "546px" }}>
                 <div className="w-full">
                     {/* dapp connected status part */}
                     {/* <div className="flex flex-row items-start w-full justify-between pt-1 pb-2">
@@ -177,7 +177,7 @@ const HomePage = () => {
                                 </p>
                             }
                         >
-                            <NetworkSelect />
+                        <NetworkSelect />
                         </GenericTooltip>
                         <DAppConnection />
                     </div> */}
@@ -221,7 +221,7 @@ const HomePage = () => {
                         </TokenSummary.Balances>
                         <TokenSummary.Actions>
                             <Link
-                                to="/bridge"
+                                to="/accounts/menu/receive"
                                 draggable={false}
                                 className={classnames(
                                     "flex flex-row items-center space-y-2 group w-full",
@@ -256,7 +256,7 @@ const HomePage = () => {
                             </Link>
                             {isSwapEnabled && (
                                 <Link
-                                    to="/swap"
+                                    to="/bridge"
                                     draggable={false}
                                     className={classnames(
                                         "flex flex-row items-center space-y-2 group w-full",
@@ -288,7 +288,7 @@ const HomePage = () => {
                                         )} */}
                                         <BuyIcon />
                                         <span className="text-xs font-medium text-body-balances-200">
-                                            Buy
+                                            Bridge
                                         </span>
                                     </div>
                                 </Link>

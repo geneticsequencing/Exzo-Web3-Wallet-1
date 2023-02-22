@@ -13,6 +13,7 @@ import NetworkDisplayBadge from "../chain/NetworkDisplayBadge"
 //context
 import { useBlankState } from "../../context/background/backgroundHooks"
 import { lockApp } from "../../context/commActions"
+import { session } from "../../context/setup"
 
 //style
 import { Classes } from "../../styles/classes"
@@ -24,7 +25,7 @@ import CloseIcon from "../icons/CloseIcon"
 import ArrowIcon from "../icons/ArrowIcon"
 import Dropdown from "../ui/Dropdown/Dropdown"
 import { DropdownMenuItem } from "../ui/Dropdown/DropdownMenu"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import VectorIcon from "../icons/VectorIcon"
 import Tooltip from "../label/Tooltip"
 import AccountIcon from "../icons/AccountIcon"
@@ -34,6 +35,11 @@ import { useSelectedAccount } from "../../context/hooks/useSelectedAccount"
 import { formatHash, formatName } from "../../util/formatAccount"
 import CopyIcon from "../icons/CopyIcon"
 import CopyTooltip from "../label/СopyToClipboardTooltip"
+import NetworkSelect from "../input/NetworkSelect"
+import { HiOutlineExclamationCircle } from "react-icons/hi"
+import { BiCircle } from "react-icons/bi"
+import GenericTooltip from "../label/GenericTooltip"
+import { useConnectedSite } from "../../context/hooks/useConnectedSite"
 
 
 const AccountDisplay = () => {
@@ -64,6 +70,81 @@ const AccountDisplay = () => {
     )
 }
 
+const DAppConnection = () => {
+    const dAppConnected = useConnectedSite()
+    const history = useHistory()!
+    return (
+        <GenericTooltip
+            bottom
+            className="p-2 w-150 overflow-auto -m-4 transition delay-300 hover:delay-0 ease-in-out"
+            content={
+                <div>
+                    <p className="w-100 text-center">
+                        {dAppConnected === "connected" ? (
+                            <span>You are connected to the open site</span>
+                        ) : (
+                            <span>You are not connected to the open site</span>
+                        )}
+                    </p>
+                </div>
+            }
+        >
+            <div
+                onClick={() => {
+                    if (dAppConnected !== "not-connected") {
+                        history.push({
+                            pathname:
+                                "/accounts/menu/connectedSites/accountList",
+                            state: {
+                                origin: session?.origin,
+                                fromRoot: true,
+                            },
+                        })
+                    }
+                }}
+                style={{transform:"scale(1.5)"}}
+                className={classnames(
+                    "relative flex flex-row items-center group cursor-pointer",
+                    // dAppConnected === "connected" &&
+                    // "bg-green-100 hover:border-green-300",
+                    // dAppConnected === "connected-warning" &&
+                    // "bg-yellow-100 hover:border-yellow-300",
+                    // dAppConnected === "not-connected" && "pointer-events-none"
+                )}
+            >
+                {dAppConnected === "connected" && (
+                    <span className="relative inline-flex rounded-full h-2 w-2 mr-2 animate-pulse bg-green-400 pointer-events-none"></span>
+                )}
+
+                {dAppConnected === "connected-warning" && (
+                    <HiOutlineExclamationCircle
+                        size={16}
+                        className="mr-1 text-yellow-600"
+                    />
+                )}
+
+                {dAppConnected === "not-connected" && (
+                    <BiCircle className="mr-1 w-2 text-white" />
+                )}
+
+                {/* <span
+                    className={classnames(
+                        "mr-1 pointer-events-none",
+                        dAppConnected === "connected" && "text-green-600",
+                        dAppConnected === "connected-warning" &&
+                        "text-yellow-600"
+                    )}
+                >
+                    {dAppConnected === "not-connected"
+                        ? "Not connected"
+                        : "Connected"}
+                </span> */}
+            </div>
+        </GenericTooltip>
+    )
+}
+
+
 export interface PopupHeaderProps {
     title: string
     backButton?: boolean
@@ -79,6 +160,7 @@ export interface PopupHeaderProps {
     className?: string
     goBackState?: object
     lockStatus?: boolean
+    networkSelect?: React.ReactNode
 }
 
 const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
@@ -96,6 +178,7 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
     className,
     goBackState,
     lockStatus = false,
+    networkSelect,
 }) => {
     const history = useOnMountHistory()
     const lastLocation = useOnMountLastLocation()
@@ -280,7 +363,12 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
                     </>)
             }
             {
-                backButton && children
+                backButton && title !== "Settings" && (
+                    <div>
+                        {children}
+                        <NetworkSelect dappConnection={<DAppConnection />}/>
+                    </div>
+                    )
             }        
             {
                 !backButton && !lockStatus && (
@@ -325,22 +413,11 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
                                 </Link> */}
                             </div>
                         </div>
-                        <div className="flex flex-row items-center -mr-1 space-x-2">
-                            {/* <GasPricesInfo /> */}
-                            <Link
-                                to="/settings"
-                                draggable={false}
-                                onClick={(e) => {
-                                    e.preventDefault()
-            
-                                    history.push("/settings")
-                                }}
-                                className="p-2 transition duration-300 rounded-full hover:bg-primary-100 hover:text-primary-300"
-                            >
-                                {/* <GearIcon /> */}
-                                <VectorIcon />
-                            </Link>
-                        </div>
+                        {/** change network */}
+                        {/* {networkSelect} */}
+                        {
+                            title !== "Settings" && <NetworkSelect dappConnection={<DAppConnection />}/>
+                        }
                     </div>
                 )
             }

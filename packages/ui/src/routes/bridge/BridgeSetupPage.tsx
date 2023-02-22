@@ -55,6 +55,7 @@ import { populateBridgeTransaction } from "../../util/bridgeUtils"
 import BridgeErrorMessage, { BridgeErrorType } from "./BridgeErrorMessage"
 import usePersistedLocalStorageForm from "../../util/hooks/usePersistedLocalStorageForm"
 import { secondsToEstimatedMinutes } from "../../util/time"
+import SwapIconHover from "../../components/icons/SwapIconHover"
 
 interface SetupBridgePageLocalState {
     amount?: string
@@ -442,21 +443,6 @@ const BridgeSetupPage: FunctionComponent<{}> = () => {
                     }
                 />
             }
-            footer={
-                <PopupFooter>
-                    <ButtonWithLoading
-                        label={
-                            quote?.allowance ===
-                            BridgeAllowanceCheck.INSUFFICIENT_ALLOWANCE
-                                ? "Approve"
-                                : "Review"
-                        }
-                        disabled={!!(routesError || bridgeQuoteError || !quote)}
-                        isLoading={isFetchingRoutes || isFetchingQuote}
-                        onClick={onSubmit}
-                    />
-                </PopupFooter>
-            }
         >
             {quote && (
                 <BridgeDetails
@@ -466,20 +452,18 @@ const BridgeSetupPage: FunctionComponent<{}> = () => {
                     onClose={() => setBridgeDetails({ isOpen: false })}
                 />
             )}
-
-            <div className="flex flex-col p-6">
+            <div className="text-white text-2xl p-6 pb-0">Bridge Assets</div>
+            <div className="flex flex-col p-6 pb-0">
                 <div
                     className={classnames(
-                        "flex flex-row",
+                        "",
                         // Error message height
                         !errors.amount?.message && "mb-[22px]"
                     )}
                 >
                     {/* Asset */}
-                    <div className="flex flex-col w-1/2 pr-1.5">
-                        <p className="text-sm text-gray-600 pb-2">
-                            Bridge Asset
-                        </p>
+                    <div className="flex flex-col">
+                        <div className="flex flex-col space w-full">
                         <AssetSelection
                             selectedAssetList={AssetListType.DEFAULT}
                             selectedAsset={
@@ -505,85 +489,15 @@ const BridgeSetupPage: FunctionComponent<{}> = () => {
                                 redirectTo: "/bridge/afterAddToken",
                                 token: selectedToken,
                             }}
+                            displayIcon={true}
                         />
-                    </div>
-
-                    {/* Amount */}
-                    <div className="flex flex-col w-1/2 pl-1.5">
-                        <div className="flex flex-row items-center space-x-1 mb-2">
-                            <span
-                                className={classnames(
-                                    "ml-auto text-sm",
-                                    isUsingNetworkNativeCurrency && "invisible",
-                                    isMaxAmountEnabled
-                                        ? "text-blue-500 hover:text-blue-800 cursor-pointer"
-                                        : "text-gray-600 cursor-default"
-                                )}
-                                onClick={() => {
-                                    if (isMaxAmountEnabled) {
-                                        const parsedAmount = formatUnits(
-                                            maxAmount,
-                                            selectedToken?.decimals
-                                        )
-                                        onUpdateAmount(parsedAmount)
-                                    }
-                                }}
-                            >
-                                Max
-                            </span>
-                        </div>
-                        <div
-                            onClick={focusAmountInput}
-                            className={classnames(
-                                "flex flex-col items-stretch rounded-md p-4 h-[4.5rem] hover:bg-primary-200 w-full",
-                                inputFocus
-                                    ? "bg-primary-200"
-                                    : "bg-primary-100",
-                                errors.amount
-                                    ? "border border-red-400"
-                                    : "border-opacity-0 border-transparent"
-                            )}
-                        >
-                            <input
-                                {...register("amount")}
-                                id="amount"
-                                name="amount"
-                                onChange={(e) => {
-                                    onUpdateAmount(e.target.value)
-                                }}
-                                maxLength={80}
-                                className="p-0 text-base bg-transparent border-none font-semibold -mt-0.5"
-                                placeholder={`0.0 ${
-                                    selectedToken ? selectedToken.symbol : ""
-                                }`}
-                                autoComplete="off"
-                                autoFocus={true}
-                                onFocus={() => setInputFocus(true)}
-                                onBlur={() => setInputFocus(false)}
-                            />
-                            <p
-                                className={classnames(
-                                    "text-xs text-gray-600 mt-1",
-                                    !formattedAmount && "hidden"
-                                )}
-                            >
-                                {formattedAmount}
-                            </p>
+                        <hr />  
                         </div>
                     </div>
-                </div>
-
-                <div
-                    className={classnames(
-                        "mt-1",
-                        !errors.amount?.message && "hidden"
-                    )}
-                >
-                    <ErrorMessage>{errors.amount?.message}</ErrorMessage>
                 </div>
 
                 {/* Divider */}
-                <div className="pt-3 h-8">
+                {/* <div className="pt-3 h-8">
                     <hr className="-mx-5" />
                     <div className="flex -translate-y-2/4 justify-center items-center mx-auto rounded-full w-8 h-8 border border-grey-200 bg-white z-10">
                         <img
@@ -592,10 +506,10 @@ const BridgeSetupPage: FunctionComponent<{}> = () => {
                             alt="arrow"
                         />
                     </div>
-                </div>
+                </div> */}
 
                 {/* Network selector */}
-                <p className="text-sm text-gray-600 pb-2">To Network</p>
+                {/* <p className="text-sm text-gray-600 pb-2">To Network</p> */}
                 <NetworkSelector
                     topMargin={60}
                     bottomMargin={200}
@@ -616,22 +530,95 @@ const BridgeSetupPage: FunctionComponent<{}> = () => {
                             network: network,
                         }))
                     }}
+                    /* Asset in destination */
+                    assetAmountDisplay = {
+                        selectedRoute && !isFetchingRoutes && (
+                            <AssetAmountDisplay
+                                asset={selectedRoute.toTokens[0]}
+                                amount={
+                                    quote &&
+                                    BigNumber.from(
+                                        quote.bridgeParams.params.toAmount
+                                    )
+                                }
+                            />
+                        )
+                    }
                 />
-
-                {/* Asset in destination */}
-                {selectedRoute && !isFetchingRoutes && (
-                    <div className="pt-3">
-                        <AssetAmountDisplay
-                            asset={selectedRoute.toTokens[0]}
-                            amount={
-                                quote &&
-                                BigNumber.from(
-                                    quote.bridgeParams.params.toAmount
-                                )
-                            }
+                
+                <hr />
+                {/* Amount */}
+                <div className="flex flex-col w-2/3 mt-12">
+                    {/* <div className="flex flex-row items-center space-x-1 mb-2">
+                        <span
+                            className={classnames(
+                                "ml-auto text-sm",
+                                isUsingNetworkNativeCurrency && "invisible",
+                                isMaxAmountEnabled
+                                    ? "text-blue-500 hover:text-blue-800 cursor-pointer"
+                                    : "text-gray-600 cursor-default"
+                            )}
+                            onClick={() => {
+                                if (isMaxAmountEnabled) {
+                                    const parsedAmount = formatUnits(
+                                        maxAmount,
+                                        selectedToken?.decimals
+                                    )
+                                    onUpdateAmount(parsedAmount)
+                                }
+                            }}
+                        >
+                            Max
+                        </span>
+                    </div> */}
+                    <div
+                        onClick={focusAmountInput}
+                        className={classnames(
+                            "flex flex-col items-stretch rounded-md p-4 pl-0 w-full",
+                            inputFocus
+                                ? ""
+                                : "",
+                            errors.amount
+                                ? ""
+                                : ""
+                        )}
+                    >
+                        <input
+                            {...register("amount")}
+                            id="amount"
+                            name="amount"
+                            onChange={(e) => {
+                                onUpdateAmount(e.target.value)
+                            }}
+                            maxLength={80}
+                            className="p-4 text-xl bg-transparent border-none text-white"
+                            placeholder={`0.0 ${
+                                selectedToken ? selectedToken.symbol : ""
+                            }`}
+                            autoComplete="off"
+                            autoFocus={true}
+                            onFocus={() => setInputFocus(true)}
+                            onBlur={() => setInputFocus(false)}
                         />
+                        <hr />
                     </div>
-                )}
+                    <p
+                        className={classnames(
+                            "text-xs text-gray-600 mt-1",
+                            !formattedAmount && "hidden"
+                        )}
+                    >
+                        {formattedAmount}
+                    </p>
+                </div>
+                <div
+                    className={classnames(
+                        "mt-1",
+                        !errors.amount?.message && "hidden"
+                    )}
+                >
+                    <ErrorMessage>{errors.amount?.message}</ErrorMessage>
+                </div>
                 {/* Bridge fees, details and estimated duration */}
                 {quote ? (
                     <>
@@ -701,6 +688,26 @@ const BridgeSetupPage: FunctionComponent<{}> = () => {
                 {routesError && !bridgeQuoteError && (
                     <ErrorMessage className="mt-4">{routesError}</ErrorMessage>
                 )}
+            </div>
+            {/* <ButtonWithLoading
+                label={
+                    quote?.allowance ===
+                    BridgeAllowanceCheck.INSUFFICIENT_ALLOWANCE
+                        ? "Approve"
+                        : "Review"
+                }
+                disabled={!!(routesError || bridgeQuoteError || !quote)}
+                isLoading={isFetchingRoutes || isFetchingQuote}
+                onClick={onSubmit}
+            /> */}
+            <div className="w-full p-6 pt-0">
+                <button className="text-base p-3 bg-body-balances-100 w-full rounded-lg text-body-balances-200">
+                    <div className="flex items-center justify-center">
+                        <SwapIconHover /> 
+                        <div className="ml-2.5">Swap 0.00 ETH</div>
+                    </div>
+                </button>
+                <div className="text-sm text-body-600 mt-1">Expected Gas Fees: 0.00074 ETH</div>
             </div>
         </PopupLayout>
     )

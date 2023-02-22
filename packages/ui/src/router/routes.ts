@@ -59,6 +59,7 @@ import SetupBridgePage from "../routes/bridge/BridgeSetupPage"
 import BridgeConfirmPage from "../routes/bridge/BridgeConfirmPage"
 import BridgeAfterAddTokenPage from "../routes/bridge/BridgeAfterAddTokenPage"
 import ActivityList from "../components/ActivityList"
+import CollectiblesPage from "../routes/CollectiblesPage"
 
 export const ROUTES_DEFINITION = [
     /* Root */
@@ -110,6 +111,8 @@ export const ROUTES_DEFINITION = [
         exact: true,
         component: ResetAccountPage,
     },
+    /* Collectibles */
+    { path: "/collectibles", exact: true, component: CollectiblesPage },
     /* Send */
     { path: "/send", exact: true, component: SendPage },
     {

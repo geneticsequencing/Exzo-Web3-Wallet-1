@@ -102,7 +102,7 @@ const AddTokensPage = () => {
             <div className="flex flex-col flex-1 w-full">
                 <div className="h-full max-h-screen overflow-auto hide-scroll">
                     {/* INPUT */}
-                    <div className="w-full p-6 pb-2 bg-white fixed z-20">
+                    <div className="w-full p-6 pb-2 fixed z-20">
                         <SearchInput
                             // {...register("tokenName")}
                             name="tokenName"
@@ -131,7 +131,6 @@ const AddTokensPage = () => {
                         />
                     )}
                 </div>
-                <hr className="border-0.5 border-gray-200 w-full" />
                 {/* FOOTER */}
                 <PopupFooter>
                     <ButtonWithLoading

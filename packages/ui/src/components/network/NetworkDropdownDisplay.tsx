@@ -10,6 +10,7 @@ interface NetworkDropdownDisplay {
     selectedNetwork?: IChain
     loadingText?: string
     emptyText?: string
+    assetAmountDisplay?: React.ReactNode
 }
 
 const NetworkDropdownDisplay: FC<NetworkDropdownDisplay> = ({
@@ -18,6 +19,7 @@ const NetworkDropdownDisplay: FC<NetworkDropdownDisplay> = ({
     selectedNetwork,
     loadingText = "",
     emptyText = "No available networks",
+    assetAmountDisplay,
 }) => {
     if (isLoading) {
         return (
@@ -43,9 +45,10 @@ const NetworkDropdownDisplay: FC<NetworkDropdownDisplay> = ({
             padding={false}
             transparent={true}
             bigLogo={false}
+            assetAmountDisplay={assetAmountDisplay}
         />
     ) : (
-        <div className="text-base font-semibold">Select network</div>
+        <div className="text-base font-semibold text-white">Select network</div>
     )
 }
 

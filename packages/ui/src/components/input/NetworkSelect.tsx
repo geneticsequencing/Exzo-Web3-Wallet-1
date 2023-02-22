@@ -51,7 +51,8 @@ const NetworkOption: FunctionComponent<{
 const NetworkSelect: FunctionComponent<{
     className?: string
     optionsContainerClassName?: string
-}> = ({ className, optionsContainerClassName }) => {
+    dappConnection?: React.ReactNode
+}> = ({ className, optionsContainerClassName, dappConnection }) => {
     const history = useHistory()!
     const [networkList, setNetworkList] = useState(false)
     const {
@@ -76,85 +77,55 @@ const NetworkSelect: FunctionComponent<{
     }
 
     return (
-        <div
-            className={`relative ${className}`}
-            ref={ref}
-            role="menu"
-            data-testid="network-selector"
-        >
+        <div className="flex items-center">
+            {dappConnection}
             <div
-                onClick={() => {
-                    if (!isImportingDeposits) {
-                        setNetworkList(!networkList)
-                    }
-                }}
-                className={classNames(
-                    "relative flex flex-row items-center justify-start p-1 text-gray-600 border rounded-md group border-primary-200 w-44 text-xs hover:border-primary-300",
-                    !isImportingDeposits
-                        ? "cursor-pointer select-none"
-                        : "disabled:pointer-events-none opacity-50",
-                    networkList && "border-primary-300"
-                )}
+                className={`relative ${className}`}
+                ref={ref}
+                role="menu"
+                data-testid="network-selector"
             >
-                <span
-                    className={"justify-start h-2 rounded-xl ml-1 mr-2"}
-                    style={{
-                        backgroundColor: getNetworkData().color,
-                        width: "8px",
+                <div
+                    onClick={() => {
+                        if (!isImportingDeposits) {
+                            setNetworkList(!networkList)
+                        }
                     }}
-                />
-                <span
-                    data-testid="selected-network"
-                    className="justify-start select-none w-36 text-ellipsis overflow-hidden whitespace-nowrap"
+                    className={classNames(
+                        "relative flex flex-row items-center justify-start p-1 text-white border-2 rounded-md group border-body-networkSelect-100 w-36 text-xs hover:border-primary-300",
+                        !isImportingDeposits
+                            ? "cursor-pointer select-none"
+                            : "disabled:pointer-events-none opacity-50",
+                        networkList && "border-primary-300"
+                    )}
                 >
-                    {getNetworkData().desc}
-                </span>
-                {networkList ? (
-                    <RiArrowUpSLine size={16} />
-                ) : (
-                    <RiArrowDownSLine size={16} />
-                )}
-            </div>
-
-            <div
-                hidden={!networkList}
-                className={`absolute shadow-md rounded-md w-48 max-h-96 overflow-y-auto mt-2 bg-white z-50 select-none ${optionsContainerClassName}`}
-            >
-                <ul className="text-xs">
-                    {Object.values(availableNetworks)
-                        .filter((n) => n.enable && !n.test)
-                        .sort(sortNetworksByOrder)
-                        .map((option) => (
-                            <NetworkOption
-                                key={option.chainId}
-                                option={option}
-                                selectedNetwork={selectedNetwork}
-                                handleNetworkChange={handleNetworkChange}
-                                disabled={!isUserNetworkOnline}
-                            />
-                        ))}
-                    <li
-                        key="test"
-                        className="cursor-pointer flex flex-row justify-between pl-2 pr-2 pt-1 pb-1 items-center border-t border-t-gray-200 border-b border-b-gray-200 hover:bg-gray-100"
-                        onClick={() => setShowTestNetworks(!showTestNetworks)}
+                    <span
+                        className={"justify-start h-2 rounded-xl ml-1 mr-2"}
+                        style={{
+                            backgroundColor: getNetworkData().color,
+                            width: "8px",
+                        }}
+                    />
+                    <span
+                        data-testid="selected-network"
+                        className="justify-start select-none w-36 text-ellipsis overflow-hidden whitespace-nowrap"
                     >
-                        <label
-                            className="leading-loose text-gray-500 cursor-pointer"
-                            htmlFor="showTestNetworks"
-                        >
-                            Show Test Networks
-                        </label>
-                        <input
-                            id="showTestNetworks"
-                            type="checkbox"
-                            className="border-2 border-gray-200 rounded-md focus:ring-0 cursor-pointer"
-                            checked={showTestNetworks}
-                            onChange={() => {}}
-                        />
-                    </li>
-                    {showTestNetworks &&
-                        Object.values(availableNetworks)
-                            .filter((n) => n.enable && n.test)
+                        {getNetworkData().desc}
+                    </span>
+                    {networkList ? (
+                        <RiArrowUpSLine size={16} />
+                    ) : (
+                        <RiArrowDownSLine size={16} />
+                    )}
+                </div>
+
+                <div
+                    hidden={!networkList}
+                    className={`absolute shadow-md rounded-md w-40 max-h-96 overflow-y-auto mt-2 bg-white z-50 select-none ${optionsContainerClassName}`}
+                >
+                    <ul className="text-xs">
+                        {Object.values(availableNetworks)
+                            .filter((n) => n.enable && !n.test)
                             .sort(sortNetworksByOrder)
                             .map((option) => (
                                 <NetworkOption
@@ -162,34 +133,67 @@ const NetworkSelect: FunctionComponent<{
                                     option={option}
                                     selectedNetwork={selectedNetwork}
                                     handleNetworkChange={handleNetworkChange}
-                                    disabled={
-                                        !isUserNetworkOnline &&
-                                        !option.name
-                                            .toLowerCase()
-                                            .includes("localhost")
-                                    }
+                                    disabled={!isUserNetworkOnline}
                                 />
                             ))}
-                    <li
-                        className={`${
-                            showTestNetworks
-                                ? "border-t border-t-gray-200 border-b border-b-gray-200"
-                                : ""
-                        } hover:bg-gray-100`}
-                    >
-                        <ClickableText
-                            className={`cursor-pointer flex flex-row justify-between pl-2 pr-2 pt-1 pb-1 leading-loose items-center w-full rounded-none`}
-                            onClick={() =>
-                                history.push({
-                                    pathname: "/settings/networks",
-                                    state: { isFromHomePage: true },
-                                })
-                            }
+                        <li
+                            key="test"
+                            className="cursor-pointer flex flex-row justify-between pl-2 pr-2 pt-1 pb-1 items-center border-t border-t-gray-200 border-b border-b-gray-200 hover:bg-gray-100"
+                            onClick={() => setShowTestNetworks(!showTestNetworks)}
                         >
-                            Edit Networks
-                        </ClickableText>
-                    </li>
-                </ul>
+                            <label
+                                className="leading-loose text-gray-500 cursor-pointer"
+                                htmlFor="showTestNetworks"
+                            >
+                                Show Test Networks
+                            </label>
+                            <input
+                                id="showTestNetworks"
+                                type="checkbox"
+                                className="border-2 border-gray-200 rounded-md focus:ring-0 cursor-pointer"
+                                checked={showTestNetworks}
+                                onChange={() => {}}
+                            />
+                        </li>
+                        {showTestNetworks &&
+                            Object.values(availableNetworks)
+                                .filter((n) => n.enable && n.test)
+                                .sort(sortNetworksByOrder)
+                                .map((option) => (
+                                    <NetworkOption
+                                        key={option.chainId}
+                                        option={option}
+                                        selectedNetwork={selectedNetwork}
+                                        handleNetworkChange={handleNetworkChange}
+                                        disabled={
+                                            !isUserNetworkOnline &&
+                                            !option.name
+                                                .toLowerCase()
+                                                .includes("localhost")
+                                        }
+                                    />
+                                ))}
+                        <li
+                            className={`${
+                                showTestNetworks
+                                    ? "border-t border-t-gray-200 border-b border-b-gray-200"
+                                    : ""
+                            } hover:bg-gray-100`}
+                        >
+                            <ClickableText
+                                className={`cursor-pointer flex flex-row justify-between pl-2 pr-2 pt-1 pb-1 leading-loose items-center w-full rounded-none`}
+                                onClick={() =>
+                                    history.push({
+                                        pathname: "/settings/networks",
+                                        state: { isFromHomePage: true },
+                                    })
+                                }
+                            >
+                                Edit Networks
+                            </ClickableText>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     )

@@ -886,6 +886,7 @@ const SendConfirmPage = () => {
                                 error={errors.asset?.message}
                                 topMargin={100}
                                 bottomMargin={45}
+                                displayIcon={true}
                             />
                             <hr />
                             {errors.asset?.message && (

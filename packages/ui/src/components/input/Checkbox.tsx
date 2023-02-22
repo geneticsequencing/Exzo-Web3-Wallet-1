@@ -43,7 +43,7 @@ const Checkbox = ({
             id="checkbox"
             disabled={disabled}
         />
-        <label htmlFor="checkbox" className=" cursor-pointer text-xs pl-2">
+        <label htmlFor="checkbox" className=" cursor-pointer text-white text-xs pl-2">
             {label}
         </label>
     </div>

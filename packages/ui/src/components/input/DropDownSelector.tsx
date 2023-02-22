@@ -14,6 +14,7 @@ type DropDownSelectorProps = {
     disabled?: boolean
     customWidth?: string
     className?: string
+    swapPage?: boolean
 }
 
 /**
@@ -39,6 +40,7 @@ const DropDownSelector: FC<DropDownSelectorProps> = ({
     disabled,
     children,
     customWidth,
+    swapPage,
 }) => {
     // State
     const [active, setActive] = useState<boolean>(false)
@@ -96,32 +98,38 @@ const DropDownSelector: FC<DropDownSelectorProps> = ({
     return (
         <div className="relative ">
             {/* Display */}
-            <div
-                className={classNames(
-                    Classes.blueSection,
-                    "h-[4.5rem]",
-                    "space-x-1 hover:bg-gray-900",
-                    active && Classes.blueSectionActive,
-                    disabled && Classes.blueSelectionDisabled,
-                    error
-                        ? "border-red-400"
-                        : "border-opacity-0 border-transparent",
-                    className
-                )}
-                onClick={() => !disabled && setActive(!active)}
-                ref={displayRef}
-            >
-                {display}
-                <div className="flex justify-center items-center">
-                    <img
-                        alt="active-arrow"
-                        src={arrowDown}
-                        className={classnames(
-                            "w-3 h-2 text-white",
-                            active && "rotate-180"
-                        )}
-                    />
+            <div className="flex">
+                <div
+                    className={classNames(
+                        swapPage ? Classes.blueSectionSwapPage : Classes.blueSection,
+                        !swapPage && "h-[4.5rem]",
+                        swapPage && "bg-body-balances-100 p-1",
+                        "space-x-1 hover:bg-gray-900",
+                        active && Classes.blueSectionActive,
+                        disabled && Classes.blueSelectionDisabled,
+                        error
+                            ? "border-red-400"
+                            : "border-opacity-0 border-transparent",
+                        className
+                    )}
+                    onClick={() => !disabled && setActive(!active)}
+                    ref={displayRef}
+                >
+                    {display}
+                    <div className="flex justify-center items-center w-2.5">
+                        <img
+                            alt="active-arrow"
+                            src={arrowDown}
+                            className={classnames(
+                                "w-3 h-2 text-white",
+                                active && "rotate-180"
+                            )}
+                        />
+                    </div>
                 </div>
+                {
+                    swapPage && <div className="w-full"></div>
+                }
             </div>
 
             {/* Popup */}
@@ -133,7 +141,7 @@ const DropDownSelector: FC<DropDownSelectorProps> = ({
                     midToTopDistance < viewHeight ? "top-full" : "bottom-full" // Determine if Popup should appear on top or on bottom of the Display element
                 )}
                 style={{
-                    maxHeight: `${maxHeightInPx}px`,
+                    maxHeight: `${maxHeightInPx + 30}px`,
                     minHeight:
                         midToTopDistance > viewHeight
                             ? `${maxHeightInPx}px`

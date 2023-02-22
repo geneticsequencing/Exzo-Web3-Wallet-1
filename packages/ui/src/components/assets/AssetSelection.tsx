@@ -42,6 +42,7 @@ interface AssetSelectionProps {
     //It will be used to return the token(in case of new one) to swap page
     addTokenState?: any
     assetBalanceClassName?: string
+    swapPage?: boolean
 }
 
 const ZERO_BN = BigNumber.from(0)
@@ -61,6 +62,7 @@ export const AssetSelection: FC<AssetSelectionProps> = ({
     assetBalanceClassName,
     addTokenState,
     register,
+    swapPage = false,
 }) => {
     const [searchResult, setSearchResult] = useState<TokenWithBalance[]>([])
     const [search, setSearch] = useState<string | null>(null)
@@ -269,6 +271,7 @@ export const AssetSelection: FC<AssetSelectionProps> = ({
                     customAmount={customAmount}
                     assetBalance={assetBalance}
                     assetBalanceClassName={assetBalanceClassName}
+                    swapPage={swapPage}
                 />
             }
             error={error}
@@ -276,6 +279,7 @@ export const AssetSelection: FC<AssetSelectionProps> = ({
             bottomMargin={bottomMargin || 0}
             popupMargin={popupMargin || 16}
             customWidth={dropdownWidth}
+            swapPage={swapPage}
         >
             <div className="w-full p-3">
                 <SearchInput

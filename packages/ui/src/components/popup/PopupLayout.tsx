@@ -41,7 +41,7 @@ const PopupLayout: FunctionComponent<{
                 {fullHeader}
             </div>
             <div className="invisible w-full">{fullHeader}</div>
-            <div className="flex-1 flex flex-col w-full h-0 max-h-[476px] overflow-auto main-content">
+            <div className="flex-1 flex flex-col w-full h-0 max-h-[476px] overflow-auto main-content z-0">
                 {children}
             </div>
             {footer ? (

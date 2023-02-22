@@ -24,18 +24,20 @@ const DropdownNetworkDisplay: FunctionComponent<
         <div
             className={classNames(
                 "flex flex-row items-center w-full p-3 my-0.5 rounded-md cursor-pointer",
-                "transition-all duration-300 active:scale-95 hover:bg-primary-100",
-                active && "bg-primary-200"
+                "transition-all duration-300 active:scale-95 hover:hover:bg-gray-700",
+                active && "scale-95"
             )}
             onClick={onClick}
         >
-            <NetworkLogo
-                logo={network.logo}
-                name={network.name}
-                bigLogo={false}
-            />
+            <div className="p-2 bg-white rounded-full">
+                <NetworkLogo
+                    logo={network.logo}
+                    name={network.name}
+                    bigLogo={false}
+                />
+            </div>
             <div
-                className="text-sm truncate font-semibold ml-4"
+                className="text-sm truncate font-semibold ml-4 text-white"
                 title={network.name}
             >
                 {network.name}

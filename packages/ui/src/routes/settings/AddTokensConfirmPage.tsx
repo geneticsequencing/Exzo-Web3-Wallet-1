@@ -63,21 +63,10 @@ const AddTokensConfirmPage = (props: any) => {
                     }}
                 />
             }
-            submitOnEnter={{ onSubmit }}
-            footer={
-                <PopupFooter>
-                    <ButtonWithLoading
-                        type="button"
-                        onClick={onSubmit}
-                        isLoading={addingTokens}
-                        label={"Add Tokens"}
-                    ></ButtonWithLoading>
-                </PopupFooter>
-            }
-        >
+            submitOnEnter={{ onSubmit }}>
             {/* MAIN */}
             <div className="flex-1 flex flex-col w-full h-0 max-h-screen pb-0">
-                <div className="text-sm text-grey-200 p-6 pb-3">
+                <div className="text-sm text-white p-6 pb-3">
                     {tokenList.length > 1
                         ? "Would you like to add these tokens?"
                         : "Would you like to add this token?"}
@@ -99,6 +88,14 @@ const AddTokensConfirmPage = (props: any) => {
             </div>
 
             {/* FOOTER */}
+            <PopupFooter>
+                    <ButtonWithLoading
+                        type="button"
+                        onClick={onSubmit}
+                        isLoading={addingTokens}
+                        label={"Add Tokens"}
+                    ></ButtonWithLoading>
+                </PopupFooter>
         </PopupLayout>
     )
 }

@@ -13,6 +13,7 @@ interface AssetDropdownDisplayProps {
     displayIcon?: boolean
     assetBalanceClassName?: string
     assetBalance?: string
+    swapPage?: boolean
 }
 
 const AssetDropdownDisplay: FC<AssetDropdownDisplayProps> = ({
@@ -21,32 +22,39 @@ const AssetDropdownDisplay: FC<AssetDropdownDisplayProps> = ({
     customAmount,
     assetBalance,
     assetBalanceClassName,
+    swapPage,
 }) => {
+    console.log(selectedAsset)
     return selectedAsset ? (
-        <div className="flex flex-row flex-grow justify-between items-center">
-            {displayIcon && (
-                <TokenLogo
-                    logo={selectedAsset.token.logo}
-                    name={selectedAsset.token.name}
-                    className="mr-2"
-                />
-            )}
-            <div className="flex flex-grow justify-between space-x-1">
-                <div className="flex flex-col justify-center">
-                    <span className="text-base font-semibold text-white">
-                        {selectedAsset.token.symbol}
-                    </span>
+        <div className="flex flex-row items-center">
+            <div className="rounded-full p-1 mr-[14px] bg-white">
+                {displayIcon && (
+                    <TokenLogo
+                        logo={selectedAsset.token.logo}
+                        name={selectedAsset.token.name}
+                        className=""
+                    />
+                )}
+            </div>
+            <div>
+                <div className="text-base truncate font-semibold text-body-600">
+                    {(selectedAsset.token.name).length  > 10 ? (selectedAsset.token.name).slice(0,10) + "...": selectedAsset.token.name}
+                </div>
+                <div className="text-body-700 text-xs">
                     {!customAmount && (
                         <span
                             title={assetBalance}
                             className={classnames(
-                                "text-xs text-gray-600 mt-1 truncate",
+                                "mt-1 truncate",
                                 assetBalanceClassName
                             )}
                         >
                             {assetBalance}
                         </span>
                     )}
+                    <span className="font-semibold ml-2">
+                        {selectedAsset.token.symbol}
+                    </span>
                 </div>
                 {customAmount && (
                     <span

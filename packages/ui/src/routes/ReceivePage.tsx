@@ -28,15 +28,15 @@ const ReceivePage = () => {
             <div className="flex flex-col items-center justify-center w-full mt-6 px-6">
                 <button
                     type="button"
-                    className="flex flex-row items-stretch justify-between group relative w-full bg-primary-100 rounded-md hover:bg-primary-200 cursor-pointer"
+                    className="flex flex-row items-stretch justify-between group relative w-full bg-body-balances-100 rounded-md hover:bg-body-balances-300 cursor-pointer"
                     onClick={copyToClipboard}
                 >
                     <span className="flex-grow py-4 px-4 ">
-                        <input
-                            value={accountAddress}
-                            disabled
-                            className="flex flex-row items-center justify-start w-full bg-opacity-0 truncate text-black text-sm font-bold outline-none cursor-pointer"
-                        />
+                        <span
+                            className="flex flex-row items-center justify-start w-full truncate text-body-balances-200 text-sm font-bold outline-none cursor-pointer"
+                        >
+                            {accountAddress.slice(0,28)+"..."}
+                        </span>
                     </span>
                     <CopyTooltip copied={copied}></CopyTooltip>
                 </button>
