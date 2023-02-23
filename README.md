@@ -1,13 +1,3 @@
-<br /> 
-
-<div align="center" style="text-align:center">
-
-[![CI](https://github.com/ExzoNetwork/extension/actions/workflows/ci.yml/badge.svg)](https://github.com/ExzoNetwork/extension/actions/workflows/ci.yml) [![Release (manual)](https://github.com/ExzoNetwork/extension/actions/workflows/build.yml/badge.svg)](https://github.com/ExzoNetwork/extension/actions/workflows/build.yml) [![Release (automated)](https://github.com/ExzoNetwork/extension/actions/workflows/release.yml/badge.svg)](https://github.com/ExzoNetwork/extension/actions/workflows/release.yml)
-
-</div>
-
-<hr />
-
 # Exzo Wallet - Extension
 
 The most private, non-custodial cryptocurrency wallet
