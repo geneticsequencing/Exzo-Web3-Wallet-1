@@ -36,7 +36,7 @@ const PopupLayout: FunctionComponent<{
     useSubmitOnEnter(submitOnEnter ?? {})
 
     return (
-        <PageLayout screen className="max-h-screen popup-layout">
+        <PageLayout screen className="max-h-screen popup-layout" InitialPageStatus={true}>
             <div className="absolute top-0 left-0 w-full popup-layout z-10">
                 {fullHeader}
             </div>
@@ -46,7 +46,6 @@ const PopupLayout: FunctionComponent<{
             </div>
             {footer ? (
                 <>
-                    <hr className="border-0.5 border-gray-200 w-full" />
                     {footer}
                 </>
             ) : null}

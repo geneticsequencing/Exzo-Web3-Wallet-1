@@ -16,6 +16,7 @@ import { useOnMountHistory } from "../../context/hooks/useOnMount"
 import log from "loglevel"
 import { ButtonWithLoading } from "../../components/button/ButtonWithLoading"
 import { useCheckUserIsOnboarded } from "../../context/hooks/useCheckUserIsOnboarded"
+import classnames from "classnames"
 
 const schema = yup.object().shape({
     password: yup
@@ -111,17 +112,18 @@ const PasswordSetupPage = () => {
         }
     }, [passwordValues.password, trigger])
     return (
-        <PageLayout header maxWidth="max-w-md">
-            <span className="my-6 text-lg font-bold font-title text-white">
+        <PageLayout className="relative" header step={1}>
+            <div className="mt-6 text-3xl font-bold font-title text-white">
                 Create a Password
-            </span>
-            <Divider />
-            <form className="flex flex-col w-full" onSubmit={onSubmit}>
-                <div className="flex flex-col p-6 space-y-4">
+            </div>
+            <div className="text-txt-subtitle text-xl my-5">
+                You will use this to unlock your wallet
+            </div>
+            <form className="px-24 flex flex-col w-full" onSubmit={onSubmit}>
+                <div className="flex flex-col p-6 space-y-6">
                     <div className="flex flex-col space-y-1">
                         <PasswordInput
-                            label="New Password"
-                            placeholder="Enter New Password"
+                            placeholder="Password"
                             {...register("password")}
                             error={formState.errors.password?.message}
                             autoFocus={true}
@@ -129,10 +131,9 @@ const PasswordSetupPage = () => {
                             setPasswordScore={setPasswordScore}
                         />
                     </div>
-                    <div className="flex flex-col space-y-1">
+                    <div className="flex flex-col space-y-2">
                         <PasswordInput
-                            label="Confirm password"
-                            placeholder="Confirm New Password"
+                            placeholder="Confirm"
                             {...register("passwordConfirmation")}
                             error={
                                 formState.errors.passwordConfirmation?.message
@@ -143,19 +144,33 @@ const PasswordSetupPage = () => {
                         <div className="flex flex-row items-center space-x-2">
                             <input
                                 type="checkbox"
-                                className={Classes.checkbox}
+                                className={classnames(Classes.checkbox, "bg-component-input-bg")}
                                 id="acceptTOU"
                                 {...register("acceptTOU")}
                             />
                             <label htmlFor="acceptTOU" className="text-xs text-white">
-                                I have read and agree to the{" "}
+                                I agree to the{" "}
+                                <a href="https://blockwallet.io/terms-of-use-of-block-wallet.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-body-balances-200">
+                                    Terms of the Service
+                                </a>
+                                ,
+                                <a href="https://blockwallet.io/terms-of-use-of-block-wallet.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-body-balances-200">
+                                    {" "}User Agreement
+                                </a><br/>
+                                and{" "}
                                 <a
                                     href="https://blockwallet.io/terms-of-use-of-block-wallet.html"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-body-balances-200"
                                 >
-                                    Terms of Use
+                                    Privacy Policy
                                 </a>
                             </label>
                         </div>
@@ -164,19 +179,12 @@ const PasswordSetupPage = () => {
                         </span>
                     </div>
                 </div>
-                <Divider />
-                <div className="flex flex-row p-6 space-x-4">
-                    <LinkButton
-                        location="/setup/"
-                        text="Back"
-                        lite
-                        disabled={isCreating}
-                    />
+                <div className="flex flex-row px-6 space-x-4">
                     <ButtonWithLoading
                         label="Create"
                         isLoading={isCreating}
                         onClick={onSubmit}
-                        buttonClass={Classes.button}
+                        buttonClass={Classes.confrimButton}
                         disabled={isCreating || isSubmitDisabled}
                     ></ButtonWithLoading>
                 </div>

@@ -2,15 +2,55 @@ module.exports = {
     content: ["./src/**/*.tsx", "./src/styles/classes.ts"],
     theme: {
         extend: {
+            boxShadow:  {
+                "3xl": '0 35px 60px -15px rgba(0, 0, 0, 0.3)'
+            },
             colors: {
+                txt: {
+                    logo: "#EFEFEF",
+                    subtitle: "#8A8A8A",
+                    warn:  "#FF9C54",
+                    check: "#CFD0D3"
+                },
+                container: {
+                    100: "#ffffff0d",
+                    reveal: "#797980",
+                },
+                component: {
+                    input: {
+                        bg:  "#151515",
+                        border: "#2F2F2F",
+                        placeholder:  "#555555"
+                    },
+                    btn: {
+                        100: "#00ffa314",
+                        200: "#00FFA3",
+                        300: "#272727",
+                        400: "#797979",
+                        500: "#FCFCFC",
+                        600: "#F9FAFA",
+                        700: "#1E2229", 
+                    }
+                },
+                border:  {
+                    100: "#ffffff26",
+                    200: "#676767",
+                    300: "#323232"
+                },
                 primary: {
                     100: "#E7F1FB",
                     200: "#D9E9FA",
                     300: "#1673FF",
                 },
                 header: {
-                    100: "#272727"
+                    100: "#272727",
+                    200: "#1A1A1C",
+                    step: {
+                        100: "#333333",
+                        200: "#00FFA3"
+                    }
                 },
+
                 body:  {
                     100: "#212121",
                     200: "#212121",

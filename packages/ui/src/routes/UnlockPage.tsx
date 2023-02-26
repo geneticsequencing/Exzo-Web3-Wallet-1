@@ -22,6 +22,7 @@ import { ButtonWithLoading } from "../components/button/ButtonWithLoading"
 import { AiFillInfoCircle } from "react-icons/ai"
 import Tooltip from "../components/label/Tooltip"
 import { LINKS } from "../util/constants"
+import { Classes } from "../styles/classes"
 
 const schema = yup.object().shape({
     password: yup.string().required("Password required."),
@@ -136,7 +137,8 @@ const UnlockPage = () => {
                         label="Confirm"
                         isLoading={isLoading}
                         onClick={onSubmit}
-                    />
+                        buttonClass={Classes.confrimButton}
+                    ></ButtonWithLoading>
                 </PopupFooter>
             }
             submitOnEnter={{

@@ -16,6 +16,7 @@ import { useBlankState } from "../../context/background/backgroundHooks"
 import { closeCurrentTab } from "../../util/window"
 import IdleComponent from "../../components/IdleComponent"
 import PopupLayout from "../../components/popup/PopupLayout"
+import BackIcon from "../../assets/exzo-images/images/back_icon.png"
 
 export interface SeedPhraseWord {
     word: string
@@ -26,7 +27,8 @@ const SeedWordsInput: FunctionComponent<{
     words: SeedPhraseWord[]
     value: SeedPhraseWord[]
     onChange: (words: SeedPhraseWord[]) => void
-}> = ({ words, value, onChange }) => {
+    isReminderConfirm: boolean
+}> = ({ words, value, onChange, isReminderConfirm = false }) => {
     const [availableWords, setAvailableWords] = useState([...words])
 
     const handleWordClick = (
@@ -67,12 +69,13 @@ const SeedWordsInput: FunctionComponent<{
 
     return (
         <div className="flex flex-col space-y-4">
-            <div className="p-2 border border-primary-100 rounded-md grid grid-cols-4 grid-rows-3 gap-2 h-36">
+            <div className={classnames("px-2 overflow-hidden rounded-3xl bg-container-reveal bg-opacity-20 flex flex-wrap justify-center gap-x-[10px] gap-y-[10px]",
+                    isReminderConfirm ? "h-[180px] py-4" :  "h-[224px] py-12")}>
                 {value.map((wordObj, index) => (
                     <button
                         type="button"
                         key={`${wordObj.word}_${index}`}
-                        className="bg-body-balances-100 text-white rounded-md py-2"
+                        className="bg-component-btn-600 text-component-btn-700 rounded-2xl py-2 w-[17%]"
                         style={{ height: "fit-content" }}
                         onClick={() => handleWordClick(wordObj, index, true)}
                     >
@@ -80,16 +83,16 @@ const SeedWordsInput: FunctionComponent<{
                     </button>
                 ))}
             </div>
-            <div className="grid grid-cols-4 gap-2">
+            <div className="flex flex-wrap justify-center gap-x-[10px] gap-y-[10px]">
                 {availableWords.map((wordObj, index) => (
                     <button
                         type="button"
                         key={`${wordObj.word}_${index}`}
                         className={classnames(
-                            "rounded-md py-3 border",
+                            "py-2 rounded-2xl border w-[18%]",
                             wordObj.isSelected
                                 ? "border-transparent bg-body-balances-100 text-white"
-                                : "border-primary-100 text-white"
+                                : "text-component-btn-700 bg-component-btn-600"
                         )}
                         onClick={() => {
                             return handleWordClick(wordObj, index, false)
@@ -111,6 +114,7 @@ const SeedPhraseBlock = (props: any) => {
         seedWords,
         inputWords,
         onSeedWordsChange,
+        isReminderConfirm,
     } = props
 
     return (
@@ -120,11 +124,6 @@ const SeedPhraseBlock = (props: any) => {
                 isReminder ? "space-y-6 p-4" : "space-y-8 p-8"
             )}
         >
-            <span>
-                Make sure that you've got it right - type out your phrase by
-                selecting the words below in the correct order.
-            </span>
-
             <span
                 className={classnames(
                     "text-red-500 text-xs",
@@ -137,6 +136,7 @@ const SeedPhraseBlock = (props: any) => {
                 words={seedWords}
                 value={inputWords}
                 onChange={(words) => onSeedWordsChange(words)}
+                isReminderConfirm={isReminderConfirm}
             />
         </div>
     )
@@ -208,76 +208,70 @@ const BackupConfirmPage = () => {
                 // reminder view in app
                 <PopupLayout
                     header={
-                        <PopupHeader title="Confirm Seed Phrase" keepState />
-                    }
-                    footer={
-                        <PopupFooter>
-                            <ButtonWithLoading
-                                label="Confirm"
-                                isLoading={isVerificationInProgress}
-                                onClick={confirmSeedPhrase}
-                                disabled={!isPhraseValid()}
-                            />
-                        </PopupFooter>
+                        <PopupHeader title="Confirm Seed Phrase" keepState isReminderConfirm={true} />
                     }
                 >
                     <SeedPhraseBlock
                         isReminder={true}
+                        isReminderConfirm={true}
                         verificationError={verificationError}
                         seedWords={seedWords}
                         inputWords={inputWords}
                         onSeedWordsChange={(words: any) => setInputWords(words)}
                     />
+                    <div className="w-full p-6">
+                        <ButtonWithLoading
+                            label="Confirm"
+                            isLoading={isVerificationInProgress}
+                            onClick={confirmSeedPhrase}
+                            disabled={!isPhraseValid()}
+                        />
+                    </div>
                 </PopupLayout>
             ) : (
                 // browser tab version during installation
                 <PageLayout
                     screen={isReminder}
                     header={!isReminder}
-                    maxWidth={isReminder ? "" : "max-w-md"}
-                    className={"text-center"}
+                    maxWidth={isReminder ? "" : ""}
+                    className={"text-center relative"}
+                    step={3}
+                    backClick={<Link
+                        to={{
+                            pathname: backLink,
+                            state: { seedPhrase, password },
+                        }}
+                        className="absolute left-4 top-4 px-6 py-2 flex justify-center items-center hover:border-border-300 hover:border-2 rounded-sm"
+                        draggable={false}
+                    >
+                        <img className="w-6 h-4" src={BackIcon} />
+                    </Link>}
                 >
-                    <span className="font-bold my-6 font-title text-lg text-white">
-                        Confirm Seed Phrase
-                    </span>
-                    <Divider />
-                    <SeedPhraseBlock
-                        isReminder={isReminder}
-                        verificationError={verificationError}
-                        seedWords={seedWords}
-                        inputWords={inputWords}
-                        onSeedWordsChange={(words: any) => setInputWords(words)}
-                    />
-                    <Divider />
-
-                    <div className="flex flex-row p-6 space-x-4">
-                        <Link
-                            to={{
-                                pathname: backLink,
-                                state: { seedPhrase, password },
-                            }}
-                            className={Classes.backButton}
-                            draggable={false}
-                        >
-                            Back
-                        </Link>
-                        <button
-                            type="button"
-                            className={classnames(
-                                Classes.button,
-                                "font-bold border-2 border-body-balances-300",
-                                (!isPhraseValid() ||
-                                    isVerificationInProgress) &&
-                                    "opacity-50 pointer-events-none"
-                            )}
+                    <div className="mt-6 text-3xl font-bold font-title text-white">
+                        Re-enter your Secret Phrase
+                    </div>
+                    <div className="text-xxs text-txt-check my-5">
+                        Select the words in your recovery phrase in their correct order.
+                    </div>
+                    <div className="px-24 flex flex-col w-full relative">
+                        <SeedPhraseBlock
+                            isReminder={isReminder}
+                            verificationError={verificationError}
+                            seedWords={seedWords}
+                            inputWords={inputWords}
+                            onSeedWordsChange={(words: any) => setInputWords(words)}
+                        />
+                        <ButtonWithLoading
+                            label="Continue"
+                            isLoading={isVerificationInProgress}
                             onClick={confirmSeedPhrase}
-                        >
-                            {!isVerificationInProgress ? (
-                                "Confirm"
-                            ) : (
-                                <Spinner />
-                            )}
-                        </button>
+                            buttonClass={classnames(Classes.confrimButton, 
+                                (!isPhraseValid() ||
+                                isVerificationInProgress) &&
+                                "opacity-50 pointer-events-none")}
+                            disabled={!isPhraseValid() ||
+                                isVerificationInProgress}
+                        ></ButtonWithLoading>
                     </div>
                 </PageLayout>
             )}

@@ -8,6 +8,7 @@ import PageLayout from "../../components/PageLayout"
 import logo from "../../assets/images/logo.svg"
 import { completeSetup } from "../../context/commActions"
 import { useOnMountHistory } from "../../context/hooks/useOnMount"
+import SuccessImg from "../../assets/exzo-images/images/success.png"
 
 const SetupDonePage = () => {
     const history: any = useOnMountHistory()
@@ -38,29 +39,25 @@ const SetupDonePage = () => {
     }
     return (
         <>
-            <div className="absolute w-full h-full flex flex-row items-center justify-center overflow-hidden z-10">
+            <div className="absolute z-50 w-full h-full flex flex-row items-center justify-center overflow-hidden">
                 <Confetti active={confettiActive} config={config} />
             </div>
-            <PageLayout centered className="relative overflow-hidden">
-                <div className="flex flex-col items-center relative py-14 z-10">
-                    <LogoHeader />
-                    <div className="flex flex-col items-center my-12 space-y-6">
-                        <span className="font-title font-semibold text-5xl text-center text-body-500">
-                            Set-up completed!
-                        </span>
-                        <div className="flex flex-col md:flex-row items-center space-x-1 w-92 px-4 md:px-0 md:w-full mx-auto text-white text-sm text-center leading-loose">
-                            <span>
-                                You're ready to start using ExzoWallet.
-                                <br />
-                                Your journey to financial privacy starts here.
-                                <br />
-                                Access ExzoWallet via the extensions section of
-                                your browser.
-                            </span>
-                        </div>
+            <PageLayout centered className="relative overflow-hidden" step={4}>
+                <div className="flex flex-col items-center relative py-8 z-10">
+                    <div className="flex flex-col items-center mb-12 mt-4 space-y-6">
+                    <div className="mt-6 text-3xl font-bold font-title text-white">
+                        Congrats!
+                    </div>
+                    <div className="text-txt-check text-base my-5">
+                        <div>Your Exzo Wallet is now ready please continue in the</div>
+                        <div className="text-center">browser extension.</div>
+                    </div>
+                    </div>
+                    <div >
+                        <img className="w-52" src={SuccessImg} />
                     </div>
                 </div>
-                <div
+                {/* <div
                     className="absolute w-64 h-64 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-5"
                     style={{
                         color: "blue",
@@ -69,7 +66,7 @@ const SetupDonePage = () => {
                         backgroundPosition: "center",
                         backgroundSize: "cover",
                     }}
-                />
+                /> */}
             </PageLayout>
         </>
     )

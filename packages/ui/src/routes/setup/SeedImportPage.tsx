@@ -22,19 +22,21 @@ const SeedImportPage = () => {
         )
 
         if (result) {
-            history.push({ pathname: "/setup/done" })
+            history.push({ pathname: "/setup/done", state: {fromImportPage: true} })
         } else {
             throw new Error("Importing wallet failed.")
         }
     }
 
     return (
-        <PageLayout header maxWidth="max-w-lg">
-            <span className="my-6 text-lg font-bold font-title text-white">
+        <PageLayout header step={5}>
+            <div className="mt-6 text-3xl font-bold font-title text-white">
                 Import an Account
-            </span>
-            <Divider />
-            <div className="flex flex-col p-6 space-y-6">
+            </div>
+            <div className="text-xxs text-txt-check my-5">
+                Select the words in your recovery phrase in their correct order.
+            </div>
+            {/* <div className="flex flex-col p-6 space-y-6">
                 <div className="flex flex-col space-y-4">
                     <div className="flex flex-col px-6 my-2 space-y-1">
                         <span className="text-sm leading-relaxed text-center text-white">
@@ -51,8 +53,8 @@ const SeedImportPage = () => {
                         </span>
                     </div>
                 </div>
-            </div>
-            <SeedImport buttonLabel="Import" action={onSubmit} />
+            </div> */}
+            <SeedImport buttonLabel="Import" action={onSubmit}  />
         </PageLayout>
     )
 }

@@ -161,6 +161,8 @@ export interface PopupHeaderProps {
     goBackState?: object
     lockStatus?: boolean
     networkSelect?: React.ReactNode
+    isReminder?: boolean
+    isReminderConfirm?: boolean
 }
 
 const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
@@ -179,6 +181,8 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
     goBackState,
     lockStatus = false,
     networkSelect,
+    isReminder = false,
+    isReminderConfirm = false,
 }) => {
     const history = useOnMountHistory()
     const lastLocation = useOnMountLastLocation()
@@ -210,8 +214,6 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
         }
     }
 
-    {"absolute top-0 left-0 z-10 flex flex-col items-start w-full px-5 py-3 bg-header-100 popup-layout"}
-    {"absolute top-0 left-0 w-full popup-layout z-10"}
     return (
         <div
             className={classnames(
@@ -220,7 +222,8 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
             )}
             style={{ backdropFilter: "blur(4px)", minHeight: "61px" }}
         >
-            {backButton && (
+            {isReminder && <div><span title="Backup Seed" className="text-base font-bold ml-1.5 text-white">Backup Seed</span></div>}
+            {backButton && !isReminder && (
                 <div className="flex items-center justify-between w-full">
                     <div>
                         <button
@@ -341,7 +344,7 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
                             {/* {networkIndicator && (
                                 <NetworkDisplayBadge truncate network={network} />
                             )} */}
-                            {/* {close && (
+                            {close && isReminder && (
                                 <button
                                     onClick={(e) => {
                                         if (onClose) return onClose(e)
@@ -358,12 +361,12 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
                                 >
                                     <CloseIcon />
                                 </button>
-                            )} */}
+                            )}
                         </div>
                     </>)
             }
             {
-                backButton && title !== "Settings" && (
+                backButton && title !== "Settings"  && !isReminder && !isReminderConfirm && (
                     <div>
                         {children}
                         <NetworkSelect dappConnection={<DAppConnection />}/>
@@ -371,7 +374,7 @@ const PopupHeader: FunctionComponent<PopupHeaderProps> = ({
                     )
             }        
             {
-                !backButton && !lockStatus && (
+                !backButton && !lockStatus && !isReminder && (
                     <div className="flex flex-row items-center justify-between w-full">
                         <div className="flex flex-row items-center space-x-3">
                             <div className="relative flex flex-col items-start group">

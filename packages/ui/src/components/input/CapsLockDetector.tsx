@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { classnames } from "../../styles"
 
 type ChildrenParams = {
     isCapsLock: boolean
@@ -6,9 +7,10 @@ type ChildrenParams = {
 
 type CapsLockDetectorProps = {
     children: (params: ChildrenParams) => React.ReactNode
+    seedImportStatus?: boolean
 }
 
-const CapsLockDetector = ({ children }: CapsLockDetectorProps) => {
+const CapsLockDetector = ({ children, seedImportStatus }: CapsLockDetectorProps) => {
     const [isCapsLock, setIsCapsLock] = useState(false)
 
     useEffect(() => {
@@ -33,7 +35,7 @@ const CapsLockDetector = ({ children }: CapsLockDetectorProps) => {
         }
     }, [])
 
-    return <div>{children({ isCapsLock })}</div>
+    return <div className={classnames(seedImportStatus? "w-[17%]" : "w-full")}>{children({ isCapsLock })}</div>
 }
 
 export default CapsLockDetector

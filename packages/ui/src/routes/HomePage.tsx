@@ -45,6 +45,7 @@ import ArrowIcon from "../components/icons/ArrowIcon"
 import { BsCurrencyBitcoin } from "react-icons/bs"
 import BuyIcon from "../components/icons/BuyIcon"
 import PopupHeader from "../components/popup/PopupHeader"
+import PopupLayout from "../components/popup/PopupLayout"
 
 const AccountDisplay = () => {
     const accountAddress = useSelectedAddressWithChainIdChecksum()
@@ -157,12 +158,12 @@ const HomePage = () => {
         state.isNetworkChanging || state.isRatesChangingAfterNetworkChange
 
     return (
-        <>
-            <div className="absolute top-0 left-0 w-full popup-layout z-10">
+        <PopupLayout
+            header={
                 <PopupHeader title="home" backButton={false}/>
-            </div>
+            }>
             {state.isNetworkChanging && <TransparentOverlay />}
-            <div className="flex flex-col items-start flex-1 w-full max-h-screen p-6 pt-24 space-y-2 overflow-auto hide-scroll" style={{ maxHeight: "546px" }}>
+            <div className="flex flex-col items-start flex-1 w-full max-h-screen p-6 space-y-2 overflow-auto hide-scroll">
                 <div className="w-full">
                     {/* dapp connected status part */}
                     {/* <div className="flex flex-row items-start w-full justify-between pt-1 pb-2">
@@ -341,7 +342,7 @@ const HomePage = () => {
                     <AssetsList />
                 </div>
             </div>
-        </>
+        </PopupLayout>
     )
 }
 

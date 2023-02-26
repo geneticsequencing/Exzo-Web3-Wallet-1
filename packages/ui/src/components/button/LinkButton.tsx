@@ -32,8 +32,8 @@ const LinkButton = ({
     return (
         <button
             onClick={handleTo}
-            className={classnames("border-white text-white",
-                lite ? Classes.backButton : "text-white",
+            className={classnames(
+                lite ? Classes.confrimButton : "text-white",
                 disabled ? "opacity-50" : "",
                 classes
             )}

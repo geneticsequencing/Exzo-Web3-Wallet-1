@@ -11,6 +11,9 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import log from "loglevel"
 import InfoTip from "../label/InfoTip"
 import Select from "../input/Select"
+import eyeOpen from "../../assets/images/icons/eye_open.svg"
+import eyeClose from "../../assets/images/icons/eye_close.svg"
+import { ButtonWithLoading } from "../button/ButtonWithLoading"
 
 const schema = yup.object().shape({
     password: yup
@@ -63,6 +66,7 @@ const SeedImport: FunctionComponent<{
             mode: "onChange",
             resolver: yupResolver(schema),
         })
+    const [showPassword, setShowPassword] = useState(false);
 
     const passwordConfirmationWatch = watch("passwordConfirmation")
     const onSubmit = handleSubmit(async (data: SeedImportFormData) => {
@@ -177,9 +181,9 @@ const SeedImport: FunctionComponent<{
             className="flex flex-col w-full text-gray-600"
             onSubmit={onSubmit}
         >
-            <div className="flex flex-col px-6 space-y-4">
+            <div className="flex flex-col px-12 space-y-4">
                 <div className="flex flex-col space-y-2">
-                    <div className="flex flex-col space-y-1">
+                    {/* <div className="flex flex-col space-y-1">
                         <Select
                             onChange={setNumberOfWords}
                             currentValue={numberOfWords}
@@ -205,37 +209,66 @@ const SeedImport: FunctionComponent<{
                             text="You can paste your entire seed phrase into any field."
                             fontSize="text-xs"
                         />
-                    </div>
+                    </div> */}
                     <div className="flex flex-col space-y-1">
-                        <div className="grid grid-cols-3 gap-2">
-                            {Array.from({ length: numberOfWords }, (v, i) => {
-                                const wordnN = i + 1
-                                return (
-                                    <PasswordInput
-                                        key={`word_${i}`}
-                                        placeholder={`Enter word #${wordnN}`}
-                                        name={`word_${i}`}
-                                        //register={register}
-                                        value={seedPhrase[i]}
-                                        onChange={(e: any) => {
-                                            e.preventDefault()
-                                            onSeedPhraseWordChange(
-                                                i,
-                                                e.target.value
-                                            )
-                                        }}
-                                        onPaste={(e: any) => {
-                                            const newSP =
-                                                e.clipboardData.getData("text")
-
-                                            if (newSP.trim().match(/\s/u)) {
+                        {/* <div className="grid grid-cols-3 gap-2"> */}
+                        <div className="h-[224px] px-2 py-12 overflow-hidden rounded-3xl bg-container-reveal bg-opacity-20 relative">
+                            <div className="absolute left-[1px] top-[5px] w-[30px]">
+                                <img
+                                    className={classnames(
+                                        "w-6 h-6 p-1 absolute right-0 transition-all duration-300 cursor-pointer hover:bg-component-btn-100 rounded-full",
+                                        showPassword === false
+                                            ? "opacity-100 z-10"
+                                            : "opacity-0 pointer-event-none z-0"
+                                    )}
+                                    src={eyeClose}
+                                    alt="show password"
+                                    onClick={() => setShowPassword(true)}
+                                />
+                                <img
+                                    className={classnames(
+                                        "w-6 h-6 p-1 absolute right-0 transition-all duration-300 cursor-pointer hover:bg-component-btn-100 rounded-full",
+                                        showPassword === true
+                                            ? "opacity-100 z-10"
+                                            : "opacity-0 pointer-event-none z-0"
+                                    )}
+                                    src={eyeOpen}
+                                    alt="hide password"
+                                    onClick={() => setShowPassword(false)}
+                                />
+                            </div>
+                            <div className=" flex flex-wrap justify-center gap-x-[10px] gap-y-[10px]">
+                                {Array.from({ length: numberOfWords }, (v, i) => {
+                                    const wordnN = i + 1
+                                    return (
+                                        <PasswordInput
+                                            key={`word_${i}`}
+                                            placeholder={`Enter word #${wordnN}`}
+                                            name={`word_${i}`}
+                                            //register={register}
+                                            value={seedPhrase[i]}
+                                            showPasswordStatus={showPassword}
+                                            onChange={(e: any) => {
                                                 e.preventDefault()
-                                                onSeedPhrasePaste(newSP)
-                                            }
-                                        }}
-                                    />
-                                )
-                            })}
+                                                onSeedPhraseWordChange(
+                                                    i,
+                                                    e.target.value
+                                                )
+                                            }}
+                                            seedImportStatus={true}
+                                            onPaste={(e: any) => {
+                                                const newSP =
+                                                    e.clipboardData.getData("text")
+
+                                                if (newSP.trim().match(/\s/u)) {
+                                                    e.preventDefault()
+                                                    onSeedPhrasePaste(newSP)
+                                                }
+                                            }}
+                                        />
+                                    )
+                                })}
+                            </div>
                         </div>
                         <span className="text-xs text-red-500">
                             {seedPhraseError || <>&nbsp;</>}
@@ -254,6 +287,7 @@ const SeedImport: FunctionComponent<{
                         })}
                         error={formState.errors.password?.message}
                         strengthBar={true}
+                        seedImportStatus={false}
                         setPasswordScore={setPasswordScore}
                     />
                 </div>
@@ -290,19 +324,11 @@ const SeedImport: FunctionComponent<{
                     </span>
                 </div>
             </div>
-            <Divider />
-            <div className="flex flex-row p-6 space-x-4">
-                <LinkButton
-                    location="/setup/"
-                    text="Back"
-                    lite
-                    disabled={isLoading}
-                />
+            <div className="px-24 flex flex-col w-full relative">
                 <button
                     type="submit"
                     className={classnames(
-                        Classes.button,
-                        "w-1/2 font-bold border-2 border-white bg-body-balances-100 text-body-balances-200",
+                        Classes.confrimButton,
                         (isLoading || isImportDisabled) &&
                             "opacity-50 pointer-events-none"
                     )}

@@ -18,6 +18,7 @@ import TransactionArrowIcon from "./icons/TransactionArrowIcon"
 import CopyIconDark from "./icons/CopyIconDark"
 import ExternalLinkIcon from "./icons/ExternalLinkIcon"
 import PopupHeader from "./popup/PopupHeader"
+import PopupLayout from "./popup/PopupLayout"
 
 const ActivityList = () => {
     const { chainId } = useSelectedNetwork()
@@ -26,12 +27,13 @@ const ActivityList = () => {
     const { transactions } = useTransactions()
 
     return (
-        <>
-            <div className="absolute top-0 left-0 w-full popup-layout z-10">
-                <PopupHeader title="home" backButton={false}/>
-            </div>
+        <PopupLayout
+            header={
+                <PopupHeader title="home" backButton={true}/>
+            }
+        >
         
-            <div className="flex flex-col items-start flex-1 w-full max-h-screen p-6 pt-24 space-y-2 overflow-auto hide-scroll">
+            <div className="flex flex-col items-start flex-1 w-full max-h-screen px-6 py-4 space-y-2 overflow-auto hide-scroll">
                 <div className="text-white flex justify-between w-full items-center">
                     <span className="text-2xl">Activity</span>
                     <Link
@@ -137,7 +139,7 @@ const ActivityList = () => {
                     </div>
                 </div>
             </div>
-        </>
+            </PopupLayout>
     )
 }
 

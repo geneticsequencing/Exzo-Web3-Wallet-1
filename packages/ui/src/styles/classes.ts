@@ -23,7 +23,7 @@ export class Classes {
         Classes.animated,
         Classes.transform,
         "flex-1 h-12 px-6 py-3 font-normal font-title text-sm shadow-sm rounded-md",
-        "border-2",
+        // "border-2",
         "cursor-pointer disabled:pointer-events-none"
     )
     static button = classnames(
@@ -75,9 +75,12 @@ export class Classes {
         "bg-gray-900 text-white hover:bg-gray-800 border-gray-900 hover:border-gray-800"
     )
     static confrimButton = classnames(
-        Classes.centered,
         Classes.baseButton,
-        "bg-body-balances-100 text-white hover:bg-body-balances-300 border-body-balances-300"
+        "hover:bg-body-balances-300 disabled:bg-component-btn-300 disabled:text-component-btn-400 bg-component-btn-100 text-component-btn-200 w-full"
+    )
+    static reminderButton = classnames(
+        Classes.baseButton,
+        "hover:border-[1px] border-border-200 bg-component-btn-300 text-component-btn-400"
     )
     static disabledDarkButton = classnames(
         Classes.baseButton,
@@ -98,14 +101,17 @@ export class Classes {
         "text-sm rounded-md border-1 border-gray-200 placeholder-gray-400 focus:ring-0"
     )
     static input = classnames(
-        "w-full text-xs px-0 py-2 border-0 border-b-2 border-gray-800 placeholder-gray-400 focus:ring-0"
+        "w-full text-xs px-4 rounded-md py-5 text-white border-[1px] border-component-input-border placeholder-component-input-placeholder focus:ring-0"
+    )
+    static seedInput = classnames(
+        "bg-component-btn-600 text-component-btn-700 rounded-2xl py-2 text-xs rounded-md py-5 placeholder-component-input-placeholder focus:ring-0"
     )
     static inputBorder = classnames(
         "w-full text-xs px-2 py-2 mt-1 rounded-md border-1 border-gray-200 placeholder-gray-400 focus:ring-0"
     )
 
     static checkbox = classnames(
-        "w-5 h-5 border-2 border-gray-800 rounded-md focus:ring-0"
+        "w-5 h-5 border-[1px] border-component-input-border rounded-md focus:ring-0 hover:cursor-pointer checked:bg-component-btn-200 checked:text-component-btn-200"
     )
     static checkboxAlt = classnames(
         "w-6 h-6 border-2 border-gray-200 rounded-md focus:ring-0 cursor-pointer"

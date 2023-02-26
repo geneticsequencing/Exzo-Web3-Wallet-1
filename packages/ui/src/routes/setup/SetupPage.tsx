@@ -9,6 +9,9 @@ import crossIcon from "../../assets/images/icons/cross.svg"
 import checkmarkIcon from "../../assets/images/icons/checkmark.svg"
 import PageLayout from "../../components/PageLayout"
 import { useCheckUserIsOnboarded } from "../../context/hooks/useCheckUserIsOnboarded"
+import LogoWhite  from "../../assets/exzo-images/images/logo_white_big.png"
+import PlusIcon from "../../assets/exzo-images/images/plus.png"
+import FolderIcon from "../../assets/exzo-images/images/Vector.png"
 
 const SetupOption: FunctionComponent<{
     title: string
@@ -17,16 +20,8 @@ const SetupOption: FunctionComponent<{
     linkTo: string
     linkLabel: string
 }> = ({ title, description, icon, linkTo, linkLabel }) => (
-    <div className="relative flex flex-col items-start flex-1 p-6 bg-body-balances-100">
-        <div className="absolute top-0 right-0 w-4 h-4 bg-white" />
-        <div className="absolute top-0 right-0 w-4 h-4 mt-4 mr-4 bg-white" />
-        <img
-            src={icon}
-            alt="icon"
-            className="mb-4 text-4xl text-gray-500 w-14 h-14"
-        />
-        <span className="text-sm font-bold font-title text-body-balances-200">{title}</span>
-        <span className="h-16 mt-4 text-xs text-gray-400">{description}</span>
+    <div className="relative flex flex-col items-start flex-1 p-6 ">
+
         <Link
             to={linkTo}
             className={classnames(Classes.button, "w-full")}
@@ -42,26 +37,41 @@ const SetupPage = () => {
     useCheckUserIsOnboarded()
 
     return (
-        <PageLayout className="relative" header>
-            <span className="my-6 text-lg font-bold font-title text-white">
-                New to ExzoWallet?
-            </span>
-            <Divider />
-            <div className="flex flex-col w-full p-6 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
-                <SetupOption
-                    title="No, I have a seed phrase"
-                    description="Import your existing wallet using a 12 word seed phrase."
-                    icon={crossIcon}
-                    linkTo="/setup/import"
-                    linkLabel="Import Your Wallet"
-                />
-                <SetupOption
-                    title="Yes, set me up"
-                    description="Create a new wallet and seed phrase."
-                    icon={checkmarkIcon}
-                    linkTo="/setup/create"
-                    linkLabel="Create a Wallet"
-                />
+        <PageLayout className="relative" header welcomePage={true}>
+            <div >
+                <div className="flex justify-center  ">
+                    <img className="w-[100px]" src={LogoWhite}></img>
+                </div>
+                <span className="my-4 text-5xl font-normal font-[CarbonText-Regular] text-txt-logo">
+                    EXZO WALLET
+                </span>
+
+            </div>
+            <div className="flex w-full p-6 space-y-4 md:flex-row md:space-y-0 md:space-x-4 mt-20">
+                    <Link
+                        to={"/setup/create"}
+                        className="flex flex-col flex-1 justify-center text-2xl pt-10  text-white border-r-2 border-border-200 hover:opacity-60"
+                        draggable={false}
+                    >
+                        <div className="flex justify-center items-center">
+                            Create a New Wallet
+                        </div>
+                        <div className="flex items-center justify-center w-full p-10">
+                            <img className="w-12 h-12" src={PlusIcon} alt="" />
+                        </div>
+                    </Link>
+                    <Link
+                        to={"/setup/import"}
+                        className="flex flex-col flex-1 justify-center text-2xl pt-10 text-white hover:opacity-60"
+                        draggable={false}
+                    >
+                        <div className="flex justify-center items-center">
+                            Access Existing Wallet
+                        </div>
+                        <div className="flex items-center justify-center w-full p-10">
+                            <img className="w-12 h-12" src={FolderIcon} alt="" />
+                        </div>
+                    </Link>
             </div>
         </PageLayout>
     )

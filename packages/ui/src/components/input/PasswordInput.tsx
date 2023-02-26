@@ -26,6 +26,8 @@ type PasswordInputProps = {
     onPaste?: (value: any) => void
     setPasswordScore?: (value: number) => void
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
+    seedImportStatus?: boolean
+    showPasswordStatus?: boolean
 }
 
 /**
@@ -61,6 +63,8 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             onPaste,
             setPasswordScore,
             onKeyDown,
+            seedImportStatus = false,
+            showPasswordStatus = false
         } = props
 
         // State
@@ -76,7 +80,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         }
 
         return (
-            <CapsLockDetector>
+            <CapsLockDetector seedImportStatus={seedImportStatus}>
                 {({ isCapsLock }) => (
                     <>
                         {/* LABEL */}
@@ -93,10 +97,10 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
                         <div className="flex items-center flex-row relative">
                             <input
                                 name={name}
-                                type={showPassword ? "text" : "password"}
+                                type={!seedImportStatus ? showPassword ? "text" : "password" : showPasswordStatus ? "text" : "password"}
                                 ref={ref}
                                 className={classNames(
-                                    Classes.input,
+                                    Classes.input, seedImportStatus? Classes.seedInput:"bg-component-input-bg",
                                     "w-full",
                                     error !== ""
                                         ? "border-red-400 focus:border-red-400"
@@ -112,28 +116,33 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
                                 onPaste={onPaste}
                                 onKeyDown={onKeyDown}
                             />
-                            <img
-                                className={classNames(
-                                    "w-6 h-6 p-1 absolute right-0 transition-all duration-300 cursor-pointer hover:bg-primary-100 rounded-full",
-                                    showPassword === false
-                                        ? "opacity-100 z-10"
-                                        : "opacity-0 pointer-event-none z-0"
-                                )}
-                                src={eyeClose}
-                                alt="show password"
-                                onClick={() => setShowPassword(true)}
-                            />
-                            <img
-                                className={classNames(
-                                    "w-6 h-6 p-1 absolute right-0 transition-all duration-300 cursor-pointer hover:bg-primary-100 rounded-full",
-                                    showPassword === true
-                                        ? "opacity-100 z-10"
-                                        : "opacity-0 pointer-event-none z-0"
-                                )}
-                                src={eyeOpen}
-                                alt="hide password"
-                                onClick={() => setShowPassword(false)}
-                            />
+                            {
+                                !seedImportStatus &&
+                                <>
+                                    <img
+                                        className={classNames(
+                                            "w-6 h-6 p-1 absolute right-0 transition-all duration-300 cursor-pointer hover:bg-component-btn-100 rounded-full",
+                                            showPassword === false
+                                                ? "opacity-100 z-10"
+                                                : "opacity-0 pointer-event-none z-0"
+                                        )}
+                                        src={eyeClose}
+                                        alt="show password"
+                                        onClick={() => setShowPassword(true)}
+                                    />
+                                    <img
+                                        className={classNames(
+                                            "w-6 h-6 p-1 absolute right-0 transition-all duration-300 cursor-pointer hover:bg-component-btn-100 rounded-full",
+                                            showPassword === true
+                                                ? "opacity-100 z-10"
+                                                : "opacity-0 pointer-event-none z-0"
+                                        )}
+                                        src={eyeOpen}
+                                        alt="hide password"
+                                        onClick={() => setShowPassword(false)}
+                                    />
+                                </>
+                            }
                             {isCapsLock && (
                                 <BsCapslockFill
                                     className="w-4 h-4 absolute right-6"

@@ -47,13 +47,6 @@ const DefaultWalletPreferencesPage: FC<DefaultWalletPreferencesProps> = ({
 
     return (
         <PopupLayout
-            header={
-                <PopupHeader
-                    title="Default Browser Wallet"
-                    backButton={!isWelcome}
-                    close={isWelcome ? false : "/"}
-                />
-            }
             footer={
                 <PopupFooter>
                     <ButtonWithLoading
@@ -64,7 +57,7 @@ const DefaultWalletPreferencesPage: FC<DefaultWalletPreferencesProps> = ({
                 </PopupFooter>
             }
         >
-            <div className="flex flex-col p-6 space-y-6 w-full">
+            <div className="flex flex-col p-6 pt-28 space-y-6 w-full">
                 <div className="text-sm text-white">
                     {wasDefaultBrowserWallet ? (
                         <span>

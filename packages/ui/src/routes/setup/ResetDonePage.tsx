@@ -7,6 +7,7 @@ import PageLayout from "../../components/PageLayout"
 
 import logo from "../../assets/images/logo.svg"
 import { completeSetup } from "../../context/commActions"
+import { useOnMountHistory } from "../../context/hooks/useOnMount"
 
 const ResetDonePage = () => {
     const [confettiActive, setConfettiActive] = useState(false)
@@ -27,12 +28,14 @@ const ResetDonePage = () => {
         perspective: "500px",
         colors: ["#000", "#333", "#666"],
     }
+    const history: any = useOnMountHistory()
+    const { fromImportPage } = history.location.state ? history.location.state : false
     return (
         <>
             <div className="absolute w-full h-full flex flex-row items-center justify-center overflow-hidden z-10">
                 <Confetti active={confettiActive} config={config} />
             </div>
-            <PageLayout centered className="relative overflow-hidden">
+            <PageLayout centered className="relative overflow-hidden" fromImportPage={fromImportPage}>
                 <div className="flex flex-col items-center relative py-14 z-10">
                     <LogoHeader />
                     <div className="flex flex-col items-center my-12 space-y-6">
